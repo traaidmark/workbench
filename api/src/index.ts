@@ -1,6 +1,8 @@
-import express from 'express';
+import 'reflect-metadata';
 import bodyParser from 'body-parser';
-import cookieSession from 'cookie-session';
+import { ConnectionOptions, createConnection } from "typeorm"
+
+import { AppDataSource } from './lib';
 
 import { Server, ConfigInterface } from './server';
 import './app';
@@ -12,7 +14,21 @@ const config: ConfigInterface = {
   port: 4000,
 };
 
+async function main () {
+  AppDataSource
+    .initialize()
+    .then(() => {
+        console.log("Data Source has been initialized!")
+    })
+    .catch((err) => {
+        console.error("Error during Data Source initialization:", err)
+    })
+  
+  const server = new Server(config);
+  server.listen();
+}
 
-const server = new Server(config);
+main().catch(console.error)
 
-server.listen();
+
+
