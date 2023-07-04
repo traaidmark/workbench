@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev:clean": "rm -rf build",
+    "clean": "rm -rf build",
     "dev:build": "tsc -w",
     "dev:run": "nodemon build/index.js",
     "dev": "concurrently npm:dev:*"
@@ -18,7 +18,8 @@
     "concurrently": "^8.2.0",
     "nodemon": "^2.0.22",
     "reflect-metadata": "^0.1.13",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "inversify": "^6.0.1"
   },
   "dependencies": {
     "body-parser": "^1.20.2",
