@@ -1,3 +1,3 @@
-export * from './controllerDecorator';
 export * from './routeDecorator';
+export * from './verbDecorator';
 export * from './useDecorator';

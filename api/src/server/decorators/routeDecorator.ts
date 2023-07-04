@@ -1,20 +1,64 @@
 import 'reflect-metadata';
 
-import { VerbType, MetaType, RouteHandlerDescriptor } from '../lib';
+import {  NextFunction, Request, Response } from 'express';
 
+import { ServerRouter } from '../classes';
+import { VerbType, MetaType } from '../lib';
 
-function routeBinder(method: string) {
+// function bodyValidators(keys: string[]): RequestHandler {
+//   return function(req: Request, res: Response, next: NextFunction) {
+//     if(!req.body) {
+//       res.status(422).send('invalid request');
+//       return;
+//     }
+//     for (let key of keys) {
+//       if (!req.body[key]) {
+//         res.status(422).send(`Missing property: ${key}`);
+//         return;
+//       }
+      
+//     }
+//     next();
+//   }
+// }
 
-  return function(path: string) {
-    return function(target: any, key: string, desc: RouteHandlerDescriptor) {
-      Reflect.defineMetadata(MetaType.path, path, target, key);
-      Reflect.defineMetadata(MetaType.method, method, target, key);
-    }
+export function Route(routePrefix: string) {
+  return function(target: Function) {
+
+    const router = ServerRouter.getInstance();
+
+    // Reflect.defineMetadata('routePrefix', routePrefix, target, key);
+
+    Object.getOwnPropertyNames(target.prototype).forEach((key) => {
+      const routeHandler = target.prototype[key];
+
+      const path = Reflect.getMetadata(
+        MetaType.path,
+        target.prototype,
+        key
+      );
+      const method: VerbType = Reflect.getMetadata(
+        MetaType.method,
+        target.prototype,
+        key
+      );
+      const middlewares = Reflect.getMetadata(
+        MetaType.middleware,
+        target.prototype,
+        key
+      ) || [];
+      // const requiredBodyProps = Reflect.getMetadata(
+      //   MetaType.validator,
+      //   target.prototype,
+      //   key
+      // ) || [];
+
+      // const validator = bodyValidators(requiredBodyProps);
+
+      if(path) {
+        router[method](`${routePrefix}${path}`, ...middlewares, routeHandler);
+      }
+
+    });
   }
 }
-
-export const get = routeBinder(VerbType.get);
-export const put = routeBinder(VerbType.put);
-export const post = routeBinder(VerbType.post);
-export const del = routeBinder(VerbType.delete);
-export const patch = routeBinder(VerbType.patch);

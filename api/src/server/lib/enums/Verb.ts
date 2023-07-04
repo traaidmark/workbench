@@ -1,7 +1,7 @@
 export enum VerbType {
-  get = 'get',
-  put = 'put',
-  post = 'post',
-  delete = 'delete',
-  patch = 'patch',
+  Get = 'get',
+  Put = 'put',
+  Post = 'post',
+  Delete = 'delete',
+  Patch = 'patch',
 }
