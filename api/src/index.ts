@@ -1,7 +1,15 @@
 import 'reflect-metadata';
-import { Server } from './system/server';
-import { serverOptions } from './config';
+import 'module-alias/register';
+import { Container } from 'inversify';
 
-let server = new  Server(serverOptions);
+import { Server, WorkshopContainer } from '@/workshop';
+import { serverOptions } from '@/app/config';
 
-server.listen();
+import '@/app/routes';
+
+let container = new WorkshopContainer(new Container()).init();
+
+let server = new Server(container, serverOptions);
+
+server
+  .listen();

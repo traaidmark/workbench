@@ -12,6 +12,11 @@
      "outDir": "./build",
      "emitDecoratorMetadata": true,
      "experimentalDecorators": true,
-     "sourceMap": true
+     "sourceMap": true,
+     "baseUrl": ".",
+     "paths": {
+         "@/*": ["./src/*"],
+      }
+
   }
 }

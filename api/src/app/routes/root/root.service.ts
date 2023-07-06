@@ -1,8 +1,5 @@
 import { injectable } from 'inversify';
 
-
-export class UserController {
-
-  
-
+@injectable()
+export class RootService {
 }
