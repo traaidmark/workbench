@@ -1,7 +1,7 @@
 import { interfaces } from 'inversify';
 
 import { controllerUtil } from '@/workshop/utils';
-import { SYSTEM_ERRORS } from '@/workshop/lib';
+import { SYSTEM_ERRORS } from '@/workshop/lib/errors';
 
 import { MetaCtrlInterface } from './lib/interfaces';
 import { CONTAINER_TYPE } from './lib/constants';

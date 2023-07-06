@@ -1,15 +1,20 @@
-import express, { Application, RequestHandler, Router } from 'express';
-import { interfaces } from 'inversify';
+import express, { Application, RequestHandler, Router, Request, Response, NextFunction } from 'express';
+import { METADATA_KEY, interfaces } from 'inversify';
 import { controllerUtil, routeUtil } from '@/workshop/utils';
 
-import { 
-  META_TYPE,
-  MetaCtrlMethodInterface,
-  ServerConfigInterface, 
+import {
   defaultServerOptions,
   defaultServerRoot,
-} from '@/workshop/lib';
-import { Controller } from './lib/abstractions';
+} from '@/workshop/lib/config';
+import {
+  MetaCtrlMethodInterface,
+  ServerConfigInterface,
+  HttpContextInterface,
+  ControllerInterface,
+  ControllerHandlerInterface
+  
+} from '@/workshop/lib/interfaces';
+import { META_TYPE, CONTAINER_TYPE } from './lib/constants';
 
 
 export class Server {
@@ -31,7 +36,6 @@ export class Server {
     
 
     // this.applyMiddleware();
-    this.applyRouter();
   }
 
   // private applyMiddleware() {
@@ -41,46 +45,29 @@ export class Server {
   //     }
   //   }
   // }
+
+  // REGISTER ROUTER
  
-  private applyRouter() {
+  private registerRouter() {
 
     const controllers = controllerUtil.getAllFromContainer(
       this._container, 
       false
     );
 
-    controllers.forEach((controller: Controller) => {
-      console.log('CONTROLLER', controller);
+    controllers.forEach((controller: ControllerInterface) => {
       const ctlMeta = controllerUtil.getMetaData(controller.constructor);
       const routeMeta = routeUtil.getMetaData(controller.constructor);
-
-      console.log('objects:', {
-        controller,
-        ctlMeta,
-        routeMeta
-      })
-
-      // Object.getOwnPropertyNames(controller.target.prototype).forEach((key) => {
-        
-      // }
 
       routeMeta.forEach((metadata: MetaCtrlMethodInterface) => {
 
         // TODO: HANDLE PARAMS
         // TODO: HANDLE MIDDLEWARE
 
-        // TODO: HANDLE HANDLER
-        // const handler: RequestHandler = ;
-
-        console.log('METADATA', metadata.target);
-
         this._router[metadata.method](
           `${ctlMeta.path}${metadata.path}`,
           // ...controllerMiddleware,
           // ...routeMiddleware,
-          // (req, res) => {
-          //   res.send({'message': 'I am starting up?!?!'});
-          // },
           metadata.target[metadata.key]
         );
 
@@ -92,12 +79,65 @@ export class Server {
 
   }
 
+
+  // ARGUMENTS
+
+  // HTTP CONTEXT
+
+  private _getHttpContext(req: express.Request): HttpContextInterface {
+    return Reflect.getMetadata(
+      META_TYPE.HttpContext,
+      req,
+    ) as HttpContextInterface;
+  }
+
+  private async _createHttpContext(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<HttpContextInterface> {
+    // const principal = await this._getCurrentUser(req, res, next);
+    return {
+      // We use a childContainer for each request so we can be
+      // sure that the binding is unique for each HTTP request
+      container: this._container.createChild(),
+      request: req,
+      response: res,
+      // user: principal
+    };
+  }
+
+  // BUILD
+
+  public build(): express.Application {
+    console.log('I AM THE BUILDER');
+
+    // CREATE CONTEXT
+
+    this._app.all('*', (
+      req: Request,
+      res: Response,
+      next: NextFunction,
+    ) => {
+      void (async (): Promise<void> => {
+        const httpContext = await this._createHttpContext(req, res, next);
+        Reflect.defineMetadata(
+          META_TYPE.HttpContext,
+          httpContext,
+          req,
+        );
+        next();
+      })();
+    });
+
+    this.registerRouter();
+    return this._app;
+  }
+
   // LISTEN
  
-  public listen(): void {
-    this._app.listen(this._opts.port, () => {
-      console.log(`App listening on the port ${this._opts.port}`);
-    });
-  }
+  // public listen(): void {
+    
+  // }
 
 }

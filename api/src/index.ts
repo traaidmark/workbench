@@ -11,5 +11,8 @@ let container = new WorkshopContainer(new Container()).init();
 
 let server = new Server(container, serverOptions);
 
-server
-  .listen();
+let appServer = server.build()
+
+appServer.listen(serverOptions.port, () => {
+  console.log(`App listening on the port ${serverOptions.port}`);
+});

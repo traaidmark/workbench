@@ -2,14 +2,30 @@
 
 export const CONTAINER_TYPE = {
   Controller: Symbol.for('Controller'),
+  HttpContext: Symbol.for('HttpContext'),
 };
+
+// CONSTANTS: PARAM TYPES
+
+export enum PARAMETER_TYPE {
+  REQUEST,
+  RESPONSE,
+  PARAMS,
+  QUERY,
+  BODY,
+  HEADERS,
+  COOKIES,
+  NEXT,
+  PRINCIPAL
+}
 
 // CONSTANTS: META DATA TYPES
 
 export enum META_TYPE {
   Controller = 'workshop:controller',
   ControllerMethod = 'workshop:controller-method',
-  middleware = 'workshop:middleware',
+  Middleware = 'workshop:middleware',
+  HttpContext = 'workshop:http-context',
 }
 
 // CONSTANTS: HTTP VERB TYPES

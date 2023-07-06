@@ -17,4 +17,16 @@ export interface RouteHandlerDescriptor extends PropertyDescriptor {
 
 export type Middleware = (string | symbol | RequestHandler);
 
-//
+// CONTEXT
+
+export interface HttpContextInterface<T = unknown> {
+  container: interfaces.Container;
+  request: Request;
+  response: Response;
+  // user: Principal<T>;
+}
+
+// CONTROLLER 
+
+export type ControllerHandlerInterface = (...params: Array<unknown>) => unknown;
+export type ControllerInterface = Record<string, ControllerHandlerInterface>;
