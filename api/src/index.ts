@@ -1,18 +1,19 @@
 import 'reflect-metadata';
 import 'module-alias/register';
-import { Container } from 'inversify';
 
-import { Server, WorkshopContainer } from '@/workshop';
-import { serverOptions } from '@/app/config';
+// import { inject } from 'inversify';
 
-import '@/app/routes';
+import { Container } from '@/workshop';
+// import { serverOptions } from '@/app/config';
 
-let container = new WorkshopContainer(new Container()).init();
+import '@/modules';
+import {UserController} from '@/modules/';
+import { CONTAINER_TYPE } from './workshop/lib/constants';
 
-let server = new Server(container, serverOptions);
+const container = new Container().init();
 
-let appServer = server.build()
+const userController = container.getNamed<UserController>(CONTAINER_TYPE.Controller, 'UserController')
 
-appServer.listen(serverOptions.port, () => {
-  console.log(`App listening on the port ${serverOptions.port}`);
-});
+userController.get();
+
+console.log('I am index', userController.get()) 
