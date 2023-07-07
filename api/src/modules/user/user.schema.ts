@@ -13,10 +13,7 @@ export interface User {
 }
 
 export interface UserControllerInterface extends ApiInterface<User> {
-  all(): Promise<User[]>;
-  one(): Promise<User>;
-  create(): Promise<User>;
-  update(): Promise<User>;
+  get(): ApiResponse<User>;
 }
 
 // export interface UserController extends ApiInterface<> {

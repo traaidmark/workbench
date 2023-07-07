@@ -1,6 +1,6 @@
 import { Container as IContainer, interfaces, decorate, injectable } from 'inversify';
 
-import { CONTAINER_TYPE } from '@/workshop/lib/constants';
+import { CONTAINER_TYPE } from '@/workshop/lib';
 
 import {UserController, UserRepository} from '@/modules/user';
 

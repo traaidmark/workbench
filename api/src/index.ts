@@ -14,6 +14,6 @@ const container = new Container().init();
 
 const userController = container.getNamed<UserController>(CONTAINER_TYPE.Controller, 'UserController')
 
-userController.get();
+userController.default();
 
-console.log('I am index', userController.get()) 
+console.log('I am index', userController.default()) 
