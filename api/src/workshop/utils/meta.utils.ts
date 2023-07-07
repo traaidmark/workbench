@@ -1,10 +1,30 @@
-import { DecoratorTarget, MetaType } from '@/workshop/lib';
+import { SystemMeta, DecoratorTarget, MetaType } from '@/workshop/lib';
+
+const meta:string = SystemMeta.Util.Meta;
 
 export const metaUtil = {
 
+  addAll<T>(type: MetaType, value: T, target: DecoratorTarget) {
+    
+    Reflect.defineMetadata(MetaType.Provider, value, target);
+
+    const previousValues: T[] = Reflect.getMetadata(
+      type,
+      Reflect,
+    ) || [];
+
+    const metaArray = [value, ...previousValues];
+
+    Reflect.defineMetadata(
+      type,
+      metaArray,
+      Reflect,
+    );
+  },
+
   getAll<T>(type: MetaType): T[] {
     const data = Reflect.getMetadata(
-      MetaType.Module,
+      type,
       Reflect,
     ) as T[] || [];
 

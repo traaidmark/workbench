@@ -1,4 +1,4 @@
 export enum MetaType {
-  Module = 'module',
-  Controller = 'controller',
+  Provider = 'meta:provider',
+  Controller = 'meta:controller',
 };

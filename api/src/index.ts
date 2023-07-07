@@ -12,8 +12,8 @@ import { ContainerType } from './workshop/lib/constants';
 
 const container = new Container().init();
 
-const userController = container.getNamed<UserController>(ContainerType.Controller, 'UserController')
+// const userController = container.getNamed<UserController>(ContainerType.Controller, 'UserController')
 
-userController.default();
+// userController.default();
 
-console.log('I am index', userController.default()) 
+// console.log('I am index', userController.default()) 

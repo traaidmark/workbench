@@ -1,5 +1,10 @@
 export const SystemMeta = {
   Container: '[Container]',
-  DecoratorModule: '[Decorator / Module]',
+  Decorator: {
+    Provider: '[Decorator / Provider]'
+  },
+  Util: {
+    Meta: '[Util / Meta]',
+  },
   UtilMeta: '[Utility / Meta]',
 };

@@ -1,8 +1,9 @@
-import { injectable, inject } from 'inversify';
+import { Provider } from '@/workshop/decorators';
+import { ProviderType } from '@/workshop/lib';
 
-
-
-@injectable()
+@Provider({
+  type: ProviderType.Repository
+})
 export class UserRepository {
 
   get() {
