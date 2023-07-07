@@ -5,6 +5,7 @@ export const SystemMeta = {
   },
   Util: {
     Meta: '[Util / Meta]',
+    Container: '[Util / Container]',
   },
   UtilMeta: '[Utility / Meta]',
 };

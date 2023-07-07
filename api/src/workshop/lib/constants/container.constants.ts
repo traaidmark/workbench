@@ -7,3 +7,8 @@ export enum ProviderType {
   Controller = 'provider:controller',
   Repository = 'provider:repository',
 }
+
+export const ProviderMessage = {
+  errorNoProvider: 'There are no Providers available to load.',
+  errorNoController: 'You need at least one valid controller provider',
+}

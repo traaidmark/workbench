@@ -1,9 +1,9 @@
-import { injectable, inject, named } from 'inversify';
+import { inject, named } from 'inversify';
 
 import { Provider } from '@/workshop/decorators';
 import { ProviderType } from '@/workshop/lib';
 
-// import { UserRepository } from './user.repository';
+import { UserRepository } from './user.repository';
 
 import { ApiInterface, ApiResponse } from '@/workshop/lib';
 import { User, UserControllerInterface } from './user.schema';
@@ -12,22 +12,18 @@ import { User, UserControllerInterface } from './user.schema';
   type: ProviderType.Controller
 })
 export class UserController implements UserControllerInterface {
-  // private _repository: UserRepository;
+  private _repository: UserRepository;
 
-  // constructor(
-  //   @inject(ContainerType.Repository) 
-  //   @named('UserRepository') 
-  //   repo: UserRepository
-  // ) {
-  //   this._repository = repo;
-  // } 
+  constructor(
+    @inject(ProviderType.Repository) 
+    @named('UserRepository') 
+    repo: UserRepository
+  ) {
+    this._repository = repo;
+  } 
 
   default() {
-    // const data = this._repository.get();
-    const success: ApiResponse<User> = {
-      message: 'hello world',
-    }
-    return success;
+    return this._repository.get();
   }
   get() {
     const success: ApiResponse<User> = {

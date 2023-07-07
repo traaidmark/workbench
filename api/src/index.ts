@@ -8,12 +8,12 @@ import { Container } from '@/workshop';
 
 import '@/modules';
 import {UserController} from '@/modules/';
-import { ContainerType } from './workshop/lib/constants';
+import { SystemMeta, ProviderType } from '@/workshop/lib';
+
+const meta:string = SystemMeta.Util.Container;
 
 const container = new Container().init();
 
-// const userController = container.getNamed<UserController>(ContainerType.Controller, 'UserController')
+const userController: UserController = container.getNamed(ProviderType.Controller, 'UserController');
 
-// userController.default();
-
-// console.log('I am index', userController.default()) 
+console.log(`${meta}`, userController.default());

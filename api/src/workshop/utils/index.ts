@@ -1,2 +1,2 @@
 export * from './meta.utils';
-export * from './module.utils';
+export * from './container.utils';

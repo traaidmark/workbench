@@ -1,5 +1,7 @@
 import { Provider } from '@/workshop/decorators';
-import { ProviderType } from '@/workshop/lib';
+import { ProviderType, ApiResponse } from '@/workshop/lib';
+
+import { User } from './user.schema';
 
 @Provider({
   type: ProviderType.Repository
@@ -7,7 +9,10 @@ import { ProviderType } from '@/workshop/lib';
 export class UserRepository {
 
   get() {
-    return 'hello from the repository!';
+    const success: ApiResponse<User> = {
+      message: 'hello world from repository!',
+    }
+    return success;
   }
 
 }

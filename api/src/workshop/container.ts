@@ -3,10 +3,13 @@ import { Container as IContainer, interfaces, decorate, injectable } from 'inver
 import {
   SystemMeta,
   MetaType,
-  ProviderInterface,
+  ProviderMetaInterface,
+  ProviderMessage,
+  ProviderType,
+  DecoratorTarget,
 } from '@/workshop/lib';
 
-import { metaUtil } from '@/workshop/utils';
+import { metaUtil, containerUtil } from '@/workshop/utils';
 
 const meta:string = SystemMeta.Container;
 
@@ -17,12 +20,7 @@ export class Container {
   }
 
   public init() {
-
-    console.log(`${meta} initting`);
-    
     this._registerControllers();
-    this._registerRepositories();
-
     return this._container; 
   }
 
@@ -30,16 +28,17 @@ export class Container {
 
   private _registerControllers(): void {
 
-    const test = metaUtil.getAll<ProviderInterface>(MetaType.Provider);
+    const providers = metaUtil.getAll<ProviderMetaInterface>(MetaType.Provider);
+    
+    containerUtil.validate(providers);
 
-    console.log(`${meta} test data`, test);
+    return containerUtil.registerAll(this._container, providers);
 
-    // this._container.bind<UserController>(ContainerType.Controller).to(UserController).whenTargetNamed('UserController');
   }
 
-  // REGISTER REPOSITORIES
+  // // REGISTER REPOSITORIES
 
-  private _registerRepositories(): void {
-    // this._container.bind(ContainerType.Repository).to(UserRepository).whenTargetNamed('UserRepository');
-  }
+  // public fetchType(type: ProviderType): DecoratorTarget[] {
+  //   return containerUtil.fetchType(this._container, type);
+  // }
 }
