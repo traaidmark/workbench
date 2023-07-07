@@ -1,19 +1,16 @@
 
 import { injectable, decorate } from 'inversify';
 
-import { ModuleInterface, ModuleMetaInterface, MetaType} from '@/workshop/lib';
+import { SystemMeta, ModuleInterface, MetaType} from '@/workshop/lib';
 
-const meta:string = '[Decorator / Module]';
+const meta:string = SystemMeta.DecoratorModule;
 
 export function Module(module: ModuleInterface) {
   return function(target: NewableFunction): void {
 
     console.log(meta, module);
 
-    const currentMeta: ModuleMetaInterface = {
-      controller: module.controller,
-      target
-    };
+    const currentMeta: ModuleInterface = module;
 
     // // decorate(injectable(), currentData.controller);
     Reflect.defineMetadata(MetaType.Module, currentMeta, target);

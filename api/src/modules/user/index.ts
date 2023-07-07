@@ -8,6 +8,7 @@ export * from './user.repository';
 import { UserController } from './user.controller';
 
 @Module({
+  name: 'User',
   // repository: UserRepository,
   controller: UserController,
 })

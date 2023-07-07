@@ -1,6 +1,6 @@
 import { injectable, inject, named } from 'inversify';
 
-import { CONTAINER_TYPE } from '@/workshop/lib/constants';
+import { ContainerType } from '@/workshop/lib/constants';
 
 import { UserRepository } from './user.repository';
 
@@ -13,7 +13,7 @@ export class UserController implements UserControllerInterface {
   private _repository: UserRepository;
 
   constructor(
-    @inject(CONTAINER_TYPE.Repository) 
+    @inject(ContainerType.Repository) 
     @named('UserRepository') 
     repo: UserRepository
   ) {

@@ -8,11 +8,11 @@ import { Container } from '@/workshop';
 
 import '@/modules';
 import {UserController} from '@/modules/';
-import { CONTAINER_TYPE } from './workshop/lib/constants';
+import { ContainerType } from './workshop/lib/constants';
 
 const container = new Container().init();
 
-const userController = container.getNamed<UserController>(CONTAINER_TYPE.Controller, 'UserController')
+const userController = container.getNamed<UserController>(ContainerType.Controller, 'UserController')
 
 userController.default();
 

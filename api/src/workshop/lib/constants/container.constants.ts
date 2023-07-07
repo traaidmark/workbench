@@ -1,4 +1,4 @@
-export const CONTAINER_TYPE = {
+export const ContainerType = {
   Controller: Symbol.for('Controller'),
   Repository: Symbol.for('Repository'),
 };
