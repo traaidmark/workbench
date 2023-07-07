@@ -3,9 +3,7 @@ import { ProviderType, ApiResponse } from '@/workshop/lib';
 
 import { User } from './user.schema';
 
-@Provider({
-  type: ProviderType.Repository
-})
+@Provider(ProviderType.Repository)
 export class UserRepository {
 
   get() {

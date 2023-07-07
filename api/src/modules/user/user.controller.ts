@@ -1,30 +1,32 @@
 import { inject, named } from 'inversify';
 
-import { Provider } from '@/workshop/decorators';
-import { ProviderType, ApiResponse } from '@/workshop/lib';
+import { Controller, Get } from '@/workshop/decorators';
+import { ProviderType, ApiResponse, ApiControllerMeta } from '@/workshop/lib';
 
 import { UserRepository } from './user.repository';
 import { User, UserControllerInterface } from './user.schema';
 
-@Provider({
-  type: ProviderType.Controller
-})
+@Controller('/')
 export class UserController implements UserControllerInterface {
-  private _repository: UserRepository;
+  // private _repository: UserRepository;
 
-  constructor(
-    @inject(ProviderType.Repository) 
-    @named('UserRepository') 
-    repo: UserRepository
-  ) {
-    this._repository = repo;
-  } 
+  // constructor(
+  //   @inject(ProviderType.Repository) 
+  //   @named('UserRepository') 
+  //   repo: UserRepository
+  // ) {
+  //   this._repository = repo;
+  // }
 
-  // @Get('/')
+  @Get('/')
   default() {
-    return this._repository.get();
+    return {
+      message: 'hello world',
+    }
+    // return this._repository.get();
   }
-  // @Get('/all')
+
+  @Get('/all')
   get() {
     const success: ApiResponse<User> = {
       message: 'hello world',

@@ -6,6 +6,7 @@
 export enum ProviderType {
   Controller = 'provider:controller',
   Repository = 'provider:repository',
+  DataBase = 'provider:database',
 }
 
 export const ProviderMessage = {

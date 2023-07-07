@@ -1,10 +1,15 @@
 import { RequestHandler } from 'express';
 
-import {ApiHttpType, DecoratorTargetInterface} from '@/workshop/lib';
+import {
+  ApiHttpType,
+  DecoratorTarget,
+  ProviderType,
+} from '@/workshop/lib';
 
 export interface ApiInterface<T> {
   default(): ApiResponse<T>;
 }
+
 export interface ApiResponse<T> {
   data?: T,
   message: string;
@@ -13,13 +18,22 @@ export interface ApiResponse<T> {
 
 export type ApiMiddleware = (string | symbol | RequestHandler);
 
-export interface ApiRouteMetaInterface {
-  middleware: Array<ApiMiddleware>;
+export interface ApiController {
   path: string;
-  target: DecoratorTargetInterface;
+  middleware: Array<ApiMiddleware>;
 }
 
-export interface ApiMethodMetaInterface extends ApiRouteMetaInterface {
+export interface ApiBaseMeta {
+  path: string;
+  middleware?: Array<ApiMiddleware>;
+  target: DecoratorTarget;
+}
+
+export interface ApiControllerMeta extends ApiBaseMeta {
+  type: ProviderType;
+}
+
+export interface ApiControllerMethodMeta extends ApiControllerMeta {
   key: string;
   method: ApiHttpType;
 }

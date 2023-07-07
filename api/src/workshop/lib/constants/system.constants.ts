@@ -3,11 +3,11 @@ export const SystemMeta = {
   Server: '[Server]',
   Decorator: {
     Service: '[Decorator / Service]',
-    Api: '[Decorator / Api]',
+    ApiController: '[Decorator / Api Controller]',
+    ApiMethod: '[Decorator / Api Method]',
   },
   Util: {
-    Meta: '[Util / Meta]',
+    Decorator: '[Util / Decorator]',
     Container: '[Util / Container]',
   },
-  UtilMeta: '[Utility / Meta]',
 };

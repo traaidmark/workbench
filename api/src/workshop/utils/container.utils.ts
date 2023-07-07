@@ -1,17 +1,17 @@
 import { interfaces, decorate, injectable } from 'inversify';
 import {
   SystemMeta,
-  ProviderMetaInterface,
+  ProviderMeta,
   ProviderMessage,
   ProviderType,
-  DecoratorTargetInterface,
+  DecoratorTarget,
 } from '../lib';
 
 const meta:string = SystemMeta.Util.Container;
 
 export const containerUtil = {
 
-  validate(providers: ProviderMetaInterface[]): void {
+  validate(providers: ProviderMeta[]): void {
 
     const isEmpty = providers.length === 0;
     const noController = providers.filter((p) => p.type === ProviderType.Controller).length === 0;
@@ -27,7 +27,7 @@ export const containerUtil = {
 
   registerAll(
     container: interfaces.Container,
-    providers: ProviderMetaInterface[]
+    providers: ProviderMeta[]
   ) {
     providers.forEach((provider) => {
       const { name } = provider.target as { name: string };
@@ -45,7 +45,7 @@ export const containerUtil = {
     container: interfaces.Container,
     type: ProviderType,
     force: boolean = false,
-  ): DecoratorTargetInterface[] {
+  ): DecoratorTarget[] {
 
     if (container.isBound(type)) {
       return container.getAll(type);

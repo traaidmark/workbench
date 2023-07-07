@@ -1,2 +1,2 @@
-export * from './meta.utils';
+export * from './decorator.utils';
 export * from './container.utils';

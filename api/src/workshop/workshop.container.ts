@@ -3,10 +3,10 @@ import { Container as IContainer, interfaces, decorate, injectable } from 'inver
 import {
   SystemMeta,
   MetaType,
-  ProviderMetaInterface,
+  ProviderMeta,
 } from '@/workshop/lib';
 
-import { metaUtil, containerUtil } from '@/workshop/utils';
+import { decoratorUtil, containerUtil } from '@/workshop/utils';
 
 const meta:string = SystemMeta.Container;
 
@@ -25,19 +25,11 @@ export class Container {
 
   private _registerProviders(): void {
 
-    const providers = metaUtil.getAll<ProviderMetaInterface>(MetaType.Provider);
-
-    console.log(`${meta}: providers caught`, providers);
+    const providers = decoratorUtil.getProviders<ProviderMeta>();
     
     containerUtil.validate(providers);
 
     return containerUtil.registerAll(this._container, providers);
 
   }
-
-  // // REGISTER REPOSITORIES
-
-  // public fetchType(type: ProviderType): DecoratorTarget[] {
-  //   return containerUtil.fetchType(this._container, type);
-  // }
 }
