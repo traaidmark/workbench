@@ -3,7 +3,7 @@ import 'module-alias/register';
 
 // import { inject } from 'inversify';
 
-import { Container } from '@/workshop';
+import { Container, Server } from '@/workshop';
 // import { serverOptions } from '@/app/config';
 
 import '@/modules';
@@ -14,6 +14,6 @@ const meta:string = SystemMeta.Util.Container;
 
 const container = new Container().init();
 
-const userController: UserController = container.getNamed(ProviderType.Controller, 'UserController');
+const app = new Server(container);
 
-console.log(`${meta}`, userController.default());
+app.start();
