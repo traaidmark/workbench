@@ -16,4 +16,4 @@ const container = new Container().init();
 
 const app = new Server(container);
 
-app.start();
+app.build().start();

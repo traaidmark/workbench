@@ -1,5 +1,6 @@
 export const SystemMeta = {
   Container: '[Container]',
+  Server: '[Server]',
   Decorator: {
     Provider: '[Decorator / Provider]'
   },
