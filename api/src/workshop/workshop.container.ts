@@ -4,9 +4,6 @@ import {
   SystemMeta,
   MetaType,
   ProviderMetaInterface,
-  ProviderMessage,
-  ProviderType,
-  DecoratorTarget,
 } from '@/workshop/lib';
 
 import { metaUtil, containerUtil } from '@/workshop/utils';
@@ -20,15 +17,17 @@ export class Container {
   }
 
   public init() {
-    this._registerControllers();
+    this._registerProviders();
     return this._container; 
   }
 
   // REGISTER CONTROLLERS
 
-  private _registerControllers(): void {
+  private _registerProviders(): void {
 
     const providers = metaUtil.getAll<ProviderMetaInterface>(MetaType.Provider);
+
+    console.log(`${meta}: providers caught`, providers);
     
     containerUtil.validate(providers);
 

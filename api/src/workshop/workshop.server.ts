@@ -46,9 +46,11 @@ export class Server {
       ProviderType.Controller,
     );
 
+    console.log(`${meta}: Controllers caught: `, providers);
+
     providers.forEach((controller: ProviderInterface) => {
 
-      console.log(`${meta}: Controller`, controller);
+      
       // const ctlMeta = controllerUtil.getMetaData(controller.constructor);
       // const routeMeta = routeUtil.getMetaData(controller.constructor);
 

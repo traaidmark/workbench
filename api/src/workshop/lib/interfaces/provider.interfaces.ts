@@ -1,9 +1,9 @@
-import { DecoratorTarget, ProviderType } from '@/workshop/lib';
+import { DecoratorTargetInterface, ProviderType } from '@/workshop/lib';
 
 export interface ProviderInterface {
   type: ProviderType;
 }
 export interface ProviderMetaInterface {
   type: ProviderType;
-  target: DecoratorTarget;
+  target: DecoratorTargetInterface;
 }

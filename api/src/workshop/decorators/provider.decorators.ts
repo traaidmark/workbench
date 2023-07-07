@@ -1,18 +1,18 @@
-import { SystemMeta, ProviderInterface, DecoratorTarget, MetaType, ProviderMetaInterface} from '@/workshop/lib';
+import { SystemMeta, ProviderInterface, DecoratorTargetInterface, MetaType, ProviderMetaInterface, DecoratorHandlerInterface} from '@/workshop/lib';
 
 import { metaUtil } from '../utils';
 
-const meta:string = SystemMeta.Decorator.Provider;
+const meta:string = SystemMeta.Decorator.Service;
 
 export function Provider(provider: ProviderInterface) {
-  return function(target: DecoratorTarget): void {
+  return function(target: DecoratorTargetInterface): void {
 
     const meta: ProviderMetaInterface = {
       ...provider,
       target
     }
 
-    metaUtil.addAll(MetaType.Provider, meta, target);
+    return metaUtil.addAll(MetaType.Provider, meta, target);
 
   }
 }

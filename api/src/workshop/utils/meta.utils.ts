@@ -1,10 +1,10 @@
-import { SystemMeta, DecoratorTarget, MetaType } from '@/workshop/lib';
+import { SystemMeta, DecoratorTargetInterface, MetaType } from '@/workshop/lib';
 
 const meta:string = SystemMeta.Util.Meta;
 
 export const metaUtil = {
 
-  addAll<T>(type: MetaType, value: T, target: DecoratorTarget) {
+  addAll<T>(type: MetaType, value: T, target: DecoratorTargetInterface) {
     
     Reflect.defineMetadata(MetaType.Provider, value, target);
 

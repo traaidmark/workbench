@@ -2,7 +2,8 @@ export const SystemMeta = {
   Container: '[Container]',
   Server: '[Server]',
   Decorator: {
-    Provider: '[Decorator / Provider]'
+    Service: '[Decorator / Service]',
+    Api: '[Decorator / Api]',
   },
   Util: {
     Meta: '[Util / Meta]',

@@ -4,7 +4,7 @@ import {
   ProviderMetaInterface,
   ProviderMessage,
   ProviderType,
-  DecoratorTarget,
+  DecoratorTargetInterface,
 } from '../lib';
 
 const meta:string = SystemMeta.Util.Container;
@@ -45,7 +45,7 @@ export const containerUtil = {
     container: interfaces.Container,
     type: ProviderType,
     force: boolean = false,
-  ): DecoratorTarget[] {
+  ): DecoratorTargetInterface[] {
 
     if (container.isBound(type)) {
       return container.getAll(type);
