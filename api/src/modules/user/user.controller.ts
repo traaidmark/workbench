@@ -5,7 +5,7 @@ import { ProviderType } from '@/workshop/lib';
 
 import { UserRepository } from './user.repository';
 
-import { ApiInterface, ApiResponse } from '@/workshop/lib';
+import { ApiResponse } from '@/workshop/lib';
 import { User, UserControllerInterface } from './user.schema';
 
 @Provider({
@@ -25,6 +25,7 @@ export class UserController implements UserControllerInterface {
   default() {
     return this._repository.get();
   }
+  
   get() {
     const success: ApiResponse<User> = {
       message: 'hello world',
