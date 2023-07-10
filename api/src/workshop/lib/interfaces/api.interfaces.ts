@@ -18,10 +18,8 @@ export interface ApiResponse<T> {
 
 export type ApiMiddleware = (string | symbol | RequestHandler);
 
-export interface ApiController {
-  path: string;
-  middleware: Array<ApiMiddleware>;
-}
+export type ApiControllerHandler = (...params: Array<unknown>) => unknown;
+export type ApiController = Record<string, ApiControllerHandler>;
 
 export interface ApiBaseMeta {
   path: string;
@@ -29,11 +27,9 @@ export interface ApiBaseMeta {
   target: DecoratorTarget;
 }
 
-export interface ApiControllerMeta extends ApiBaseMeta {
-  type: ProviderType;
-}
+export interface ApiControllerMeta extends ApiBaseMeta {}
 
-export interface ApiControllerMethodMeta extends ApiControllerMeta {
+export interface ApiControllerMethodMeta extends ApiBaseMeta {
   key: string;
   method: ApiHttpType;
 }

@@ -4,6 +4,7 @@ import {
   SystemMeta,
   MetaType,
   ProviderMeta,
+  ProviderType,
 } from '@/workshop/lib';
 
 import { decoratorUtil, containerUtil } from '@/workshop/utils';
@@ -17,19 +18,33 @@ export class Container {
   }
 
   public init() {
-    this._registerProviders();
+    this._registerControllers();
     return this._container; 
   }
 
   // REGISTER CONTROLLERS
 
-  private _registerProviders(): void {
+  private _registerControllers(): void {
 
-    const providers = decoratorUtil.getProviders<ProviderMeta>();
-    
-    containerUtil.validate(providers);
+    const controllers = decoratorUtil.getControllers();
 
-    return containerUtil.registerAll(this._container, providers);
+    containerUtil.registerServices(
+      this._container,
+      ProviderType.Controller,
+      controllers,
+    );
 
   }
+
+  // REGISTER PROVIDERS
+
+  // private _registerProviders(): void {
+
+  //   const providers = decoratorUtil.getProviders<ProviderMeta>();
+    
+  //   containerUtil.validate(providers);
+
+  //   return containerUtil.registerAll(this._container, providers);
+
+  // }
 }

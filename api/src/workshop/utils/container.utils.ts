@@ -25,18 +25,19 @@ export const containerUtil = {
 
   },
 
-  registerAll(
+  registerServices(
     container: interfaces.Container,
-    providers: ProviderMeta[]
+    type: ProviderType,
+    constructors: DecoratorTarget[],
   ) {
-    providers.forEach((provider) => {
-      const { name } = provider.target as { name: string };
+    constructors.forEach((constructor) => {
+      const { name } = constructor as { name: string };
 
-      decorate(injectable(), provider.target);
+      decorate(injectable(), constructor);
 
       container
-        .bind(provider.type)
-        .to(provider.target as new (...args: Array<never>) => unknown)
+        .bind(type)
+        .to(constructor as new (...args: Array<never>) => unknown)
         .whenTargetNamed(name);
     });
   },

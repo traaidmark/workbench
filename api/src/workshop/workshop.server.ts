@@ -1,8 +1,17 @@
 import express, { Application, RequestHandler, Router, Request, Response, NextFunction } from 'express';
 import { interfaces } from 'inversify';
 
-import { containerUtil, decoratorUtil } from '@/workshop/utils';
-import { SystemMeta, ProviderInterface, ProviderType, MetaType, DecoratorTargetInterface } from '@/workshop/lib';
+import {
+  containerUtil,
+  decoratorUtil
+} from '@/workshop/utils';
+import {
+  SystemMeta,
+  ProviderType,
+  MetaType,
+  DecoratorTarget,
+  ApiController
+} from '@/workshop/lib';
 
 const meta:string = SystemMeta.Server;
 
@@ -41,24 +50,23 @@ export class Server {
 
   private _registerRouter() {
 
-    const providers = containerUtil.fetchType(
+    const controllers = containerUtil.fetchType(
       this._container, 
       ProviderType.Controller,
     );
 
-    console.log(`${meta}: Controllers caught: `, providers);
+    controllers.forEach((controller: ApiController) => {
 
-    providers.forEach((controller: DecoratorTargetInterface) => {
+      // const { name } = controller.constructor as { name: string };
 
-      const { name } = controller.constructor as { name: string };
-
-      console.log(`${meta}: Controller name: `, name);
+      console.log(`${meta}: Controller Caught`, controller);
 
       // TODO: GET CONTROLLER META DATA
-      const controllerTestMeta = decoratorUtil.getAll(
-        MetaType.Controller
-      );
-      console.log(`${meta}: Controller Test Meta: `, controllerTestMeta);
+      // const controllerTestMeta = decoratorUtil.getAll(
+      //   MetaType.Controller
+      // );
+      // console.log(`${meta}: Controller Test Meta: `, controllerTestMeta);
+      
       const controllerMeta = decoratorUtil.getFor(
         MetaType.Controller, 
         controller.constructor

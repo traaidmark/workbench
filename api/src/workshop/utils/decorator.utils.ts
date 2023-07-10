@@ -2,6 +2,7 @@ import {
   SystemMeta,
   DecoratorTarget,
   MetaType,
+  ApiControllerMeta
 } from '@/workshop/lib';
 
 const meta:string = SystemMeta.Util.Decorator;
@@ -32,26 +33,13 @@ export const decoratorUtil = {
       type,
       Reflect,
     ) || [];
-
     return data;
   },
-  getProviders<T>(): T[] {
-    const providers: T[] = Reflect.getMetadata(
-      MetaType.Provider,
-      Reflect,
-    ).map((controller) => {
-      return {
-        type: controller.type,
-        target: controller.target
-      }
-    }) || [];
 
-    console.log(`${meta} Get Providers`, providers);
 
-    return providers;
-  },
 
   getFor<T>(type: MetaType, constructor: NewableFunction) {
+
     const data = Reflect.getOwnMetadata(
       type,
       constructor,
@@ -61,6 +49,14 @@ export const decoratorUtil = {
     console.log(`${meta} FROM DATA`, data);
 
     return data;
+  },
+
+  getControllers(): DecoratorTarget[] {
+    const data: ApiControllerMeta[] = Reflect.getMetadata(
+      MetaType.Controller,
+      Reflect,
+    ) || [];
+    return data.map((c) => c.target);
   }
 
 };
