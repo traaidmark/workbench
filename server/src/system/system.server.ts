@@ -1,6 +1,8 @@
 import express, { Application, RequestHandler, Router, Request, Response, NextFunction } from 'express';
 import { interfaces } from 'inversify';
 
+import { DecoratorType, ContainerType } from './lib';
+
 const meta:string = '[SERVER]';
 
 export class Server {
@@ -37,6 +39,35 @@ export class Server {
   // PRIVATE METHODS
 
   private _registerRouter() {
+
+    console.log(`${meta}: Register routes`);
+
+    const controllers = this._container.getAll(ContainerType.Controller);
+
+    controllers.forEach(controller => {
+      console.log(`${meta}: Registered Controllers`, controller);
+
+      // GET CONTROLLER META
+
+      const ctrlMeta = Reflect.getOwnMetadata(
+        DecoratorType.Controller,
+        controller.constructor,
+      )
+
+      console.log(`${meta}: Controller Meta`, ctrlMeta);
+
+      const methodMeta = Reflect.getOwnMetadata(
+        DecoratorType.ControllerMethod,
+        controller.constructor,
+      )
+
+      console.log(`${meta}: Method Meta`, methodMeta);
+
+      // BUILD ROUTER
+
+      // this._router['get'](`${ctrlMeta.path}${}`, [], (req, res) => res.send({'message': 'hello'}));
+
+    });
 
     this._router['get'](`/`, [], (req, res) => res.send({'message': 'hello'}));
 
