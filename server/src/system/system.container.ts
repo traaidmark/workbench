@@ -1,15 +1,15 @@
 import { Container as IContainer, interfaces, decorate, injectable } from 'inversify';
 
-import {
-  SystemMeta,
-  MetaType,
-  ProviderMeta,
-  ProviderType,
-} from '@/workshop/lib';
+// import {
+//   SystemMeta,
+//   MetaType,
+//   ProviderMeta,
+//   ProviderType,
+// } from '@/workshop/lib';
 
-import { decoratorUtil, containerUtil } from '@/workshop/utils';
+// import { decoratorUtil, containerUtil } from '@/workshop/utils';
 
-const meta:string = SystemMeta.Container;
+const meta:string = '[CONTAINER]';
 
 export class Container {
   private _container: interfaces.Container;
@@ -25,15 +25,6 @@ export class Container {
   // REGISTER CONTROLLERS
 
   private _registerControllers(): void {
-
-    const controllers = decoratorUtil.getControllers();
-
-    containerUtil.registerServices(
-      this._container,
-      ProviderType.Controller,
-      controllers,
-    );
-
   }
 
   // REGISTER PROVIDERS

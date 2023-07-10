@@ -1,0 +1,5 @@
+- [ . ] Add basic structure
+- [ . ] Add a working express server
+- [ . ] Add three controllers
+- [ . ] Add them to container
+- [ . ] link them to server
