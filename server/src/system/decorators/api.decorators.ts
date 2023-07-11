@@ -2,7 +2,10 @@ import { injectable, decorate } from 'inversify';
 
 import {
   DecoratorType,
+  DecoratorTarget,
   ApiMethodType,
+  ApiControllerMeta,
+  ApiControllerMethodMeta,
  } from '@/system/lib';
 
 
@@ -10,9 +13,10 @@ import {
 // DECORATOR: CONTROLLER
 
 export function Controller(prefix: string) {
-  return function(target: Function) {
+  return function(target: DecoratorTarget): void {
 
-    const current = {
+    const current: ApiControllerMeta = {
+      name: (target as { name: string }).name,
       prefix,
       target
     }
@@ -20,7 +24,7 @@ export function Controller(prefix: string) {
     decorate(injectable(), target);
     Reflect.defineMetadata(DecoratorType.Controller, current, target);
 
-    const previousValues = Reflect.getMetadata(
+    const previousValues: ApiControllerMeta[] = Reflect.getMetadata(
       DecoratorType.Controller,
       Reflect,
     ) || [];
@@ -41,15 +45,16 @@ export function Controller(prefix: string) {
 function routeBinder(method: ApiMethodType) {
 
   return function(path: string) {
-    return function(target: any, key: string) { 
+    return function(target: DecoratorTarget, key: string):void  {
   
-      const metaData = {
+      const metaData: ApiControllerMethodMeta = {
+        key,
         method,
         path,
         target: target[key]
       };
   
-      let metaList = [];
+      let metaList: ApiControllerMethodMeta[] = [];
   
       const hasMeta = Reflect.hasOwnMetadata(
         DecoratorType.ControllerMethod,

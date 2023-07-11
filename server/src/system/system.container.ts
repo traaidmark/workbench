@@ -39,7 +39,7 @@ export class Container {
 
     // GET FROM META
 
-    const controllers = Reflect.getMetadata(
+    const controllers: NewableFunction[] = Reflect.getMetadata(
       DecoratorType.Controller,
       Reflect,
     ).map( (m) => m.target) || [];

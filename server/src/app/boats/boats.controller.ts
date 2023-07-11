@@ -13,7 +13,7 @@ export class BoatsController {
   @Get('/')
   getAll(req: Request, res: Response) {
     res.status(200).send({
-      'message': 'I am all boats'
+      'message': 'I am all boats!!'
     })
   }
 

@@ -1,7 +1,17 @@
 import express, { Application, RequestHandler, Router, Request, Response, NextFunction } from 'express';
 import { interfaces } from 'inversify';
 
-import { DecoratorType, ContainerType } from './lib';
+import {
+  DecoratorType,
+  ContainerType,
+  ApiControllerMeta,
+  ApiControllerMethodMeta,
+  ApiController,
+  ApiControllerHandler,
+  ApiHttpContext
+} from './lib';
+
+import { controllerUtils } from './utils';
 
 const meta:string = '[SERVER]';
 
@@ -40,39 +50,34 @@ export class Server {
 
   private _registerRouter() {
 
-    console.log(`${meta}: Register routes`);
+    // FAKE HTTP CONTEXT?!
+    this._container
+      .bind<ApiHttpContext>(ContainerType.HttpContext)
+      .toConstantValue({} as ApiHttpContext);
 
     const controllers = this._container.getAll(ContainerType.Controller);
 
-    controllers.forEach(controller => {
-      console.log(`${meta}: Registered Controllers`, controller);
+    controllers.forEach(c => {
+      
+      const app: ApiControllerMeta = controllerUtils.fetch(c.constructor);
 
-      // GET CONTROLLER META
+      // console.log(`${meta}: Method Meta`, app);
 
-      const ctrlMeta = Reflect.getOwnMetadata(
-        DecoratorType.Controller,
-        controller.constructor,
-      )
+      app.methods.forEach((m) => {
 
-      console.log(`${meta}: Controller Meta`, ctrlMeta);
+        // const handler:express.RequestHandler = this._handlerFactory(app.name, m.key)
+        const handler:express.RequestHandler = c[m.key];
 
-      const methodMeta = Reflect.getOwnMetadata(
-        DecoratorType.ControllerMethod,
-        controller.constructor,
-      )
-
-      console.log(`${meta}: Method Meta`, methodMeta);
-
-      // BUILD ROUTER
-
-      // this._router['get'](`${ctrlMeta.path}${}`, [], (req, res) => res.send({'message': 'hello'}));
+        this._router[m.method](
+          `${app.prefix}${m.path}`, 
+          [], 
+          handler
+        );
+      });
 
     });
-
-    this._router['get'](`/`, [], (req, res) => res.send({'message': 'hello'}));
 
     this._app.use('/', this._router);
 
   }
-
 };
