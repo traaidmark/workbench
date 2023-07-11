@@ -6,9 +6,35 @@ import {
   ApiMethodType,
   ApiControllerMeta,
   ApiControllerMethodMeta,
+  ApiRepositoryMeta,
  } from '@/system/lib';
 
+// DECORATOR: REPOSITORY
 
+export function Repository(target: DecoratorTarget): void {
+
+  const current: ApiRepositoryMeta = {
+    name: (target as { name: string }).name,
+    target
+  }
+
+  decorate(injectable(), target);
+  Reflect.defineMetadata(DecoratorType.Repository, current, target);
+
+  const previousValues: ApiRepositoryMeta[] = Reflect.getMetadata(
+    DecoratorType.Repository,
+    Reflect,
+  ) || [];
+
+  const metaArray = [current, ...previousValues];
+
+  Reflect.defineMetadata(
+    DecoratorType.Repository,
+    metaArray,
+    Reflect,
+  );
+
+}
 
 // DECORATOR: CONTROLLER
 

@@ -1,5 +1,6 @@
 export enum DecoratorType {
   Controller = 'controller',
-  ControllerMethod = 'method',
+  ControllerMethod = 'controller:method',
+  Repository = 'repository',
   HttpContext = 'http-context',
 }

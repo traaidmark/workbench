@@ -19,14 +19,21 @@ export class Container {
   }
 
   public init() {
+
+    this._registerRepository();
+
+    if (this._container.isBound(ContainerType.Repository)) {
+      const registeredRepositories = this._container.getAll(ContainerType.Repository)
+      console.log(`${meta}: Registered Repositories`, registeredRepositories);
+    }
+
     this._registerControllers();
 
     if (this._container.isBound(ContainerType.Controller)) {
-
       const registeredControllers = this._container.getAll(ContainerType.Controller)
-
       console.log(`${meta}: Registered Controllers`, registeredControllers);
     }
+    
 
     return this._container; 
   }
@@ -57,13 +64,25 @@ export class Container {
 
   // REGISTER PROVIDERS
 
-  // private _registerProviders(): void {
+  private _registerRepository(): void {
 
-  //   const providers = decoratorUtil.getProviders<ProviderMeta>();
-    
-  //   containerUtil.validate(providers);
+    console.log(`${meta}: Registering repositories...`)
 
-  //   return containerUtil.registerAll(this._container, providers);
+    // GET FROM META
 
-  // }
+    const repositories: NewableFunction[] = Reflect.getMetadata(
+      DecoratorType.Repository,
+      Reflect,
+    ).map( (m) => m.target) || [];
+
+    // LOOP THROUGH
+
+    repositories.forEach((c) => {
+      const { name } = c as { name: string };
+      this._container.bind(ContainerType.Repository)
+      .to(c as new (...args: never[]) => unknown)
+      .whenTargetNamed(name);
+    });
+
+  }
 }

@@ -36,3 +36,8 @@ export interface ApiControllerMethodMeta {
   path: string;
   target: DecoratorTarget;
 }
+
+export interface ApiRepositoryMeta {
+  name: string;
+  target: DecoratorTarget;
+}

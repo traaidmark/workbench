@@ -71,7 +71,7 @@ export class Server {
         this._router[m.method](
           `${app.prefix}${m.path}`, 
           [], 
-          handler
+          c[m.key]
         );
       });
 
