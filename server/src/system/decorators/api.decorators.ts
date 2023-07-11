@@ -1,64 +1,31 @@
-import { injectable, decorate } from 'inversify';
-
 import {
-  DecoratorType,
-  DecoratorTarget,
-  ApiMethodType,
-  ApiControllerMeta,
-  ApiControllerMethodMeta,
-  ApiRepositoryMeta,
+  Int,
+  Type
  } from '@/system/lib';
-
-// DECORATOR: REPOSITORY
-
-export function Repository(target: DecoratorTarget): void {
-
-  const current: ApiRepositoryMeta = {
-    name: (target as { name: string }).name,
-    target
-  }
-
-  decorate(injectable(), target);
-  Reflect.defineMetadata(DecoratorType.Repository, current, target);
-
-  const previousValues: ApiRepositoryMeta[] = Reflect.getMetadata(
-    DecoratorType.Repository,
-    Reflect,
-  ) || [];
-
-  const metaArray = [current, ...previousValues];
-
-  Reflect.defineMetadata(
-    DecoratorType.Repository,
-    metaArray,
-    Reflect,
-  );
-
-}
 
 // DECORATOR: CONTROLLER
 
 export function Controller(prefix: string) {
-  return function(target: DecoratorTarget): void {
+  return function(target: Int.DecoratorTarget): void {
 
-    const current: ApiControllerMeta = {
+    const current: Int.ApiControllerMeta = {
       name: (target as { name: string }).name,
       prefix,
       target
     }
 
-    decorate(injectable(), target);
-    Reflect.defineMetadata(DecoratorType.Controller, current, target);
+    // decorate(injectable(), target);
+    Reflect.defineMetadata(Type.DecoratorType.Controller, current, target);
 
-    const previousValues: ApiControllerMeta[] = Reflect.getMetadata(
-      DecoratorType.Controller,
+    const previousValues: Int.ApiControllerMeta[] = Reflect.getMetadata(
+      Type.DecoratorType.Controller,
       Reflect,
     ) || [];
 
     const metaArray = [current, ...previousValues];
 
     Reflect.defineMetadata(
-      DecoratorType.Controller,
+      Type.DecoratorType.Controller,
       metaArray,
       Reflect,
     );
@@ -68,34 +35,34 @@ export function Controller(prefix: string) {
 
 // DECORATOR: METHODS
 
-function routeBinder(method: ApiMethodType) {
+function routeBinder(method: Type.ApiMethod) {
 
   return function(path: string) {
-    return function(target: DecoratorTarget, key: string):void  {
+    return function(target: Int.DecoratorTarget, key: string):void  {
   
-      const metaData: ApiControllerMethodMeta = {
+      const metaData: Int.ApiControllerMethodMeta = {
         key,
         method,
         path,
         target: target[key]
       };
   
-      let metaList: ApiControllerMethodMeta[] = [];
+      let metaList: Int.ApiControllerMethodMeta[] = [];
   
       const hasMeta = Reflect.hasOwnMetadata(
-        DecoratorType.ControllerMethod,
+        Type.DecoratorType.ControllerMethod,
         target.constructor
       );
       
       if(!hasMeta) {
         Reflect.defineMetadata(
-          DecoratorType.ControllerMethod,
+          Type.DecoratorType.ControllerMethod,
           metaList,
           target.constructor
         );
       } else {
         metaList = Reflect.getOwnMetadata(
-          DecoratorType.ControllerMethod,
+          Type.DecoratorType.ControllerMethod,
           target.constructor,
         );
       }
@@ -106,5 +73,5 @@ function routeBinder(method: ApiMethodType) {
   }
 }
 
-export const Get = routeBinder(ApiMethodType.Get);
-export const Post = routeBinder(ApiMethodType.Post);
+export const Get = routeBinder(Type.ApiMethod.Get);
+export const Post = routeBinder(Type.ApiMethod.Post);

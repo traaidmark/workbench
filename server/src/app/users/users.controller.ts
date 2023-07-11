@@ -1,6 +1,8 @@
 import { Request, Response, } from 'express';
-import { Controller, Get } from '@/system/decorators';
+import { Provider, Controller, Get } from '@/system/decorators';
+import { Type } from '@/system/lib';
 
+@Provider(Type.Provider.Controller)
 @Controller('/users')
 export class UsersController {
 

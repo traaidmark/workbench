@@ -1,18 +1,19 @@
 import { Request, Response, } from 'express';
 import { inject, named  } from 'inversify';
 
-import { Controller, Get } from '@/system/decorators';
-import { ContainerType  } from '@/system/lib';
+import { Provider, Controller, Get } from '@/system/decorators';
+import { Type } from '@/system/lib';
 
 import { BoatsControllerInterface, BoatsRepositoryInterface } from './boats.schema';
 
+@Provider(Type.Provider.Controller)
 @Controller('/boats')
 export class BoatsController implements BoatsControllerInterface {
 
   private _repository: BoatsRepositoryInterface;
 
   constructor(
-    @inject(ContainerType.Repository) 
+    @inject(Type.Provider.Repository) 
     @named('BoatsRepository') 
     repo: BoatsRepositoryInterface
   ) {
@@ -20,15 +21,17 @@ export class BoatsController implements BoatsControllerInterface {
   }
 
   @Get('/1')
-  public findOne = (req: Request, res: Response) => {
-    const data = this._repository.findOne();
-    res.status(200).send(data);
+  findOne(req: Request, res: Response) {
+    res.status(200).send({
+      'message': 'I am a single Boat'
+    })
   }
-
+  
   @Get('/')
-  public getAll = (req: Request, res: Response) => {
-    const data = this._repository.getAll();
-    res.status(200).send(data);
+  getAll(req: Request, res: Response) {
+    res.status(200).send({
+      'message': 'I am all Boats'
+    })
   }
 
 }

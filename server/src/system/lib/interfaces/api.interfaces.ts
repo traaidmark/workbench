@@ -2,7 +2,7 @@
 import { interfaces } from 'inversify';
 import { Request, Response, NextFunction } from 'express';
 
-import { ApiMethodType, DecoratorTarget } from '@/system/lib';
+import { Int, Type, } from '@/system/lib';
 
 export type ApiControllerHandler = (...params: Array<unknown>) => unknown;
 export type ApiController = Record<string, ApiControllerHandler>;
@@ -18,26 +18,26 @@ export interface ApiUser<T = unknown> {
 }
 
 export interface ApiHttpContext<T = unknown> {
-  container: interfaces.Container;
+  container: Int.Container;
   request: Request;
   response: Response;
-  user: ApiUser<T>;
+  user: Int.ApiUser<T>;
 }
 
 export interface ApiControllerMeta {
   name: string;
   prefix: string;
-  target: DecoratorTarget;
-  methods?: ApiControllerMethodMeta[];
+  target: Int.DecoratorTarget;
+  methods?: Int.ApiControllerMethodMeta[];
 }
 export interface ApiControllerMethodMeta {
   key: string;
-  method: ApiMethodType;
+  method: Type.ApiMethod;
   path: string;
-  target: DecoratorTarget;
+  target: Int.DecoratorTarget;
 }
 
 export interface ApiRepositoryMeta {
   name: string;
-  target: DecoratorTarget;
+  target: Int.DecoratorTarget;
 }

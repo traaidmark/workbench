@@ -1,20 +1,18 @@
 import {
-  DecoratorType,
-  ApiController,
-  ApiControllerMeta,
-  ApiControllerMethodMeta
+  Type,
+  Int,
 } from '../lib';
 
-import { decoratorUtils } from './decorator.utils';
+import { utils } from '@/system';
 
 export const controllerUtils = {
 
   // FETCH ALL CONTROLLERS
 
-  fetch(c: NewableFunction): ApiControllerMeta {
+  fetch(c: NewableFunction): Int.ApiControllerMeta {
 
-    const controller: ApiControllerMeta = decoratorUtils.fetchSingle(DecoratorType.Controller, c);
-    const methods: ApiControllerMethodMeta[] = decoratorUtils.fetchAll(DecoratorType.ControllerMethod, c);
+    const controller: Int.ApiControllerMeta = utils.decorator.fetchSingle(Type.DecoratorType.Controller, c);
+    const methods: Int.ApiControllerMethodMeta[] = utils.decorator.fetchAll(Type.DecoratorType.ControllerMethod, c);
 
     return {
       ...controller,

@@ -1,14 +1,8 @@
 import express, { Application, RequestHandler, Router, Request, Response, NextFunction } from 'express';
-import { interfaces } from 'inversify';
 
 import {
-  DecoratorType,
-  ContainerType,
-  ApiControllerMeta,
-  ApiControllerMethodMeta,
-  ApiController,
-  ApiControllerHandler,
-  ApiHttpContext
+  Int,
+  Type
 } from './lib';
 
 import { controllerUtils } from './utils';
@@ -16,12 +10,12 @@ import { controllerUtils } from './utils';
 const meta:string = '[SERVER]';
 
 export class Server {
-  private _container: interfaces.Container;
+  private _container: Int.Container;
   private _app: Application;
   private _router: Router;
 
   constructor(
-    container: interfaces.Container,
+    container: Int.Container,
   ){
     this._container = container;
     
@@ -52,26 +46,25 @@ export class Server {
 
     // FAKE HTTP CONTEXT?!
     this._container
-      .bind<ApiHttpContext>(ContainerType.HttpContext)
-      .toConstantValue({} as ApiHttpContext);
+      .bind<Int.ApiHttpContext>(Type.Provider.HttpContext)
+      .toConstantValue({} as Int.ApiHttpContext);
 
-    const controllers = this._container.getAll(ContainerType.Controller);
+    const controllers = this._container.getAll(Type.Provider.Controller);
 
     controllers.forEach(c => {
       
-      const app: ApiControllerMeta = controllerUtils.fetch(c.constructor);
+      const app: Int.ApiControllerMeta = controllerUtils.fetch(c.constructor);
 
       // console.log(`${meta}: Method Meta`, app);
 
       app.methods.forEach((m) => {
-
-        // const handler:express.RequestHandler = this._handlerFactory(app.name, m.key)
+        
         const handler:express.RequestHandler = c[m.key];
 
         this._router[m.method](
           `${app.prefix}${m.path}`, 
           [], 
-          c[m.key]
+          handler
         );
       });
 

@@ -1,9 +1,10 @@
 
-import { Repository  } from '@/system/decorators';
+import { Provider  } from '@/system/decorators';
+import { Type } from '@/system/lib';
 
 import { BoatsRepositoryInterface } from './boats.schema';
 
-@Repository
+@Provider(Type.Provider.Repository)
 export class BoatsRepository implements BoatsRepositoryInterface {
  
   findOne() {
