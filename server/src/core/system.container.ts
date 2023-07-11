@@ -9,7 +9,7 @@ import { Int } from './lib';
 //   Provider,
 // } from '@/workshop/lib';
 
-import { utils } from '@/system';
+import { utils } from '@/core';
 
 const meta:string = '[CONTAINER]';
 

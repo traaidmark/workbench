@@ -3,7 +3,7 @@ import { injectable, decorate } from 'inversify';
 import {
   Int,
   Type
- } from '@/system/lib';
+ } from '@/core/lib';
 
 // DECORATOR: PROVIDER
 export function Provider(provider: Type.Provider) {

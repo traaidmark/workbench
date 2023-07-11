@@ -1,7 +1,8 @@
 import 'reflect-metadata';
 import 'module-alias/register';
+import 'dotenv/config';
 
-import { Container, Server } from '@/system';
+import { Container, Server } from '@/core';
 
 import '@/app';
 

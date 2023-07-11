@@ -1,8 +1,8 @@
 import { Request, Response, } from 'express';
 import { inject, named  } from 'inversify';
 
-import { Provider, Controller, Get } from '@/system/decorators';
-import { Type } from '@/system/lib';
+import { Provider, Controller, Get } from '@/core/decorators';
+import { Type } from '@/core/lib';
 
 import { BoatsControllerInterface, BoatsRepositoryInterface } from './boats.schema';
 

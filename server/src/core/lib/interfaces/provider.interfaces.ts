@@ -1,4 +1,4 @@
-import { Int, Type } from '@/system/lib';
+import { Int, Type } from '@/core/lib';
 
 export type ProviderHandler = (...params: Array<unknown>) => unknown;
 export type Provider = Record<string, ProviderHandler>;

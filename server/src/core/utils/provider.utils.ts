@@ -1,6 +1,6 @@
-import { utils } from '@/system';
+import { utils } from '@/core';
 
-import { Int, Type } from '@/system/lib';
+import { Int, Type } from '@/core/lib';
 
 export const provider = {
 

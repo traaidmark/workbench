@@ -1,7 +1,7 @@
 import {
   Int,
   Type
- } from '@/system/lib';
+ } from '@/core/lib';
 
 // DECORATOR: CONTROLLER
 

@@ -1,6 +1,6 @@
 
-import { Provider  } from '@/system/decorators';
-import { Type } from '@/system/lib';
+import { Provider  } from '@/core/decorators';
+import { Type } from '@/core/lib';
 
 import { BoatsRepositoryInterface } from './boats.schema';
 

@@ -2,7 +2,7 @@
 import { interfaces } from 'inversify';
 import { Request, Response, NextFunction } from 'express';
 
-import { Int, Type, } from '@/system/lib';
+import { Int, Type, } from '@/core/lib';
 
 export type ApiControllerHandler = (...params: Array<unknown>) => unknown;
 export type ApiController = Record<string, ApiControllerHandler>;
