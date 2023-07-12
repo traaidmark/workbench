@@ -2,12 +2,16 @@ import 'reflect-metadata';
 import 'module-alias/register';
 import 'dotenv/config';
 
-import { Container, Server } from '@/core';
+import { AppService } from '@/core';
 
-import '@/app';
+import modules from '@/app';
 
-const container = new Container().init();
+const app = new AppService();
 
-const app = new Server(container);
+app.addModules(modules);
 
-app.build().start();
+app.start();
+
+// const app = new Server(container);
+
+// app.build().start();
