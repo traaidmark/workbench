@@ -1,12 +1,7 @@
-import { Container, inject, interfaces } from 'inversify';
+import { Container } from 'inversify';
 
-import { DecoratorType } from '../lib/schema';
-import { decoratorUtility } from '../utils';
-
-import { name } from './app.constants';
 import {
   ContainerInterface,
-  AppProviderMeta,
   AppProviderType,
   AppUtilityInterface,
 } from './app.schema';
