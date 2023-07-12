@@ -4,16 +4,14 @@ import {
   ProviderType,
   Provider,
   Name,
-  AddRepository,
-  AddBase,
   Controller,
   Get,
-  AddUtility
-} from '@/core/services';
+  AddService
+} from '@/core';
 
 import {
   BoatsControllerInterface,
-  BoatsRepositoryInterface
+  BoatsServiceInterface
 } from './boats.schema';
 
 import { LoggerInterface } from '@/core/providers';
@@ -22,17 +20,19 @@ import { LoggerInterface } from '@/core/providers';
 @Controller('/boats')
 export class BoatsController implements BoatsControllerInterface {
 
-  private _repo: BoatsRepositoryInterface;
-  private _logger: LoggerInterface;
+  @AddService @Name('BoatsService') _service: BoatsServiceInterface;
 
-  constructor(
-    @AddRepository @Name('BoatsRepository') repo: BoatsRepositoryInterface,
-    @AddUtility @Name('LoggerProvider') logger: LoggerInterface
+  // private _repo: BoatsRepositoryInterface;
+  // private _logger: LoggerInterface;
 
-  ) {
-    this._repo = repo;
-    this._logger = logger;
-  }
+  // constructor(
+  //   @AddRepository @Name('BoatsRepository') repo: BoatsRepositoryInterface,
+  //   @AddUtility @Name('LoggerProvider') logger: LoggerInterface
+
+  // ) {
+  //   this._repo = repo;
+  //   this._logger = logger;
+  // }
 
   @Get('/1')
   findOne = (req: Request, res: Response): void => {
