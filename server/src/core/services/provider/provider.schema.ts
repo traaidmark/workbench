@@ -1,9 +1,9 @@
 import { interfaces } from 'inversify';
-import { DecoratorTarget } from '../lib/schema';
+import { DecoratorTarget } from '@/core/lib/schema';
 
 // SCHEMA: TYPES
 
-export enum AppProviderType {
+export enum ProviderType {
   Controller = 'workshop:provider:controller',
   Repository = 'workshop:provider:repository',
   Base = 'workshop:provider:base',
@@ -13,21 +13,15 @@ export enum AppProviderType {
 
 // SCHEMA: INTERFACES
 
-export interface AppUtilityInterface {
+export interface ProviderUtilityInterface {
   preflight(): void;
-  register(type: AppProviderType): void;
+  register(type: ProviderType): void;
 }
 
+export interface ProviderContainerInterface extends interfaces.Container {}
 
-export interface ContainerInterface extends interfaces.Container {}
-
-
-export interface AppModuleInterface {
-  controller: NewableFunction;
-}
-
-export interface AppProviderMeta {
-  type: AppProviderType;
+export interface ProviderMeta {
+  type: ProviderType;
   key: string;
   target: DecoratorTarget;
 }

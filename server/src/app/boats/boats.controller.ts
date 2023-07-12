@@ -1,12 +1,12 @@
 import { Request, Response, RequestHandler } from 'express';
 
 import {
-  AppProviderType,
-  AppProvider,
+  ProviderType,
+  Provider,
   Name,
   AddRepo,
   AddBase
-} from '@/core/app';
+} from '@/core/services/provider';
 
 import {
   BoatsControllerInterface,
@@ -15,7 +15,7 @@ import {
 
 import { LoggerInterface } from '@/core/providers';
 
-@AppProvider(AppProviderType.Controller)
+@Provider(ProviderType.Controller)
 export class BoatsController implements BoatsControllerInterface {
 
   private _repo: BoatsRepositoryInterface;

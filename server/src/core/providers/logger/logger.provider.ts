@@ -1,8 +1,8 @@
-import { AppProvider, AppProviderType } from '@/core/app'
+import { Provider, ProviderType } from '@/core/services/provider'
 
 import {LoggerInterface} from './logger.schema';
 
-@AppProvider(AppProviderType.Base)
+@Provider(ProviderType.Base)
 export class LoggerProvider implements LoggerInterface {
   public happy = (): void => {
     console.log('LOGGER PROVIDER SAYS HELLO!');
