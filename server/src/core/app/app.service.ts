@@ -1,31 +1,51 @@
-import { Container } from 'inversify';
+import { Container, inject, interfaces } from 'inversify';
 
 import { DecoratorType } from '../lib/schema';
 import { decoratorUtility } from '../utils';
 
 import { name } from './app.constants';
 import {
-  AppModuleInterface,
   ContainerInterface,
-  AppProviderMeta
+  AppProviderMeta,
+  AppProviderType,
+  AppUtilityInterface,
 } from './app.schema';
 
-const meta:string = '[APP]';
+import AppUtility from './app.utils';
+
+import { AppProvider } from './app.decorators';
+
+import { BoatsControllerInterface, BoatsRepositoryInterface } from '@/app';
 
 export class AppService {
 
   private _container: ContainerInterface;
+  private _util: AppUtilityInterface;
 
   constructor() {
     this._container = new Container();
+    this._util = new AppUtility(this._container);
   }
+
+    // private _repository: BoatsRepositoryInterface;
+
+  // constructor(
+  //   @inject(Type.Provider.Repository) 
+  //   @named('BoatsRepository') 
+  //   repo: BoatsRepositoryInterface
+  // ) {
+  //   this._repository = repo;
+  // }
 
   // PUBLIC METHODS
 
   public init(): this {
 
-    // Action: Register Providers
+    this._util.preflight();
+    
     this._registerProviders();
+
+    this._testController()
 
     return this;
   }
@@ -38,57 +58,28 @@ export class AppService {
   // PRIVATE METHODS
 
   _registerProviders = (): void => {
-    console.log(`${meta}: Registering Providers...`);
 
-    const providersMeta: AppProviderMeta[] = decoratorUtility.fetchAll(DecoratorType.Provider) || [];
+    console.log(`${name}: Registering Providers...`);
 
-    providersMeta.forEach((meta) => {
+    // REGISTER BASE PROVIDERS
 
+    this._util.register(AppProviderType.Base);
 
-      // Register the provider
+    // REGISTER APP PROVIDERS
 
-      this._container.bind(meta.type)
-      .to(meta.target as new (...args: never[]) => unknown)
-      .whenTargetNamed(meta.key);
-
-      // Validate the registration
-
-      if (this._container.isBound(meta.type)) {
-
-        const registeredProviders = this._container.getNamed(
-          meta.type,
-          meta.key
-        );
-
-        console.log(
-          `[CONTAINER]: Registered ${meta.type}`, 
-          registeredProviders
-        );
-        
-      }
-
-    })
+    this._util.register(AppProviderType.Repository);
+    this._util.register(AppProviderType.Controller);
 
   }
 
-  // _registerProviders = <T>() => {
-  //   console.log(`${meta}: Registering Providers...`);
+  private _testController = () => {
 
-  //   
+    const testController: BoatsControllerInterface = this._container.getNamed(AppProviderType.Controller, 'BoatsController');
 
-  //   providersMeta.forEach((meta) => {
-  //     this._container.bind(meta.type)
-  //     .to(meta.target as new (...args: never[]) => unknown)
-  //     .whenTargetNamed(meta.key);
-  //   }
+    console.log(
+      `${name}: Controller Factory Test`, 
+      testController.getAll()
+    );
 
-    //DEBUG SHIT
-
-    // if (this._container.isBound(meta.type)) {
-    //   const registeredProviders = this._container.getAll(meta.type)
-    //   console.log(`[CONTAINER]: Registered ${meta.type}`, registeredProviders);
-
-    
-
-  
+  }
 }

@@ -1,7 +1,8 @@
-
+import { AppProviderType, AppProvider } from '@/core';
 
 import { BoatsRepositoryInterface } from './boats.schema';
 
+@AppProvider(AppProviderType.Repository)
 export class BoatsRepository implements BoatsRepositoryInterface {
  
   findOne() {

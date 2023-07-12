@@ -1,35 +1,58 @@
-import { Request, Response, } from 'express';
-import { inject, named  } from 'inversify';
+import { Request, Response, RequestHandler } from 'express';
 
-import { AppProviderType, AppProvider } from '@/core';
+import {
+  AppProviderType,
+  AppProvider,
+  Name,
+  Repository,
+  Base
+} from '@/core/app';
 
-import { BoatsControllerInterface, BoatsRepositoryInterface } from './boats.schema';
+import {
+  BoatsControllerInterface,
+  BoatsRepositoryInterface
+} from './boats.schema';
+
+import { LoggerInterface } from '@/core/providers';
 
 @AppProvider(AppProviderType.Controller)
 export class BoatsController implements BoatsControllerInterface {
 
-  // private _repository: BoatsRepositoryInterface;
+  private _repo: BoatsRepositoryInterface;
+  private _logger: LoggerInterface;
 
-  // constructor(
-  //   @inject(Type.Provider.Repository) 
-  //   @named('BoatsRepository') 
-  //   repo: BoatsRepositoryInterface
-  // ) {
-  //   this._repository = repo;
+  constructor(
+    @Repository @Name('BoatsRepository') repo: BoatsRepositoryInterface,
+    @Base @Name('LoggerProvider') logger: LoggerInterface
+
+  ) {
+    this._repo = repo;
+    this._logger = logger;
+  }
+
+
+  // findOne(req: Request, res: Response): void {
+  //   res.status(200).send({
+  //     'message': 'I am a single Boat'
+  //   })
   // }
+  
 
-
-  findOne(req: Request, res: Response) {
-    res.status(200).send({
+  // getAll(req: Request, res: Response): void {
+  //   res.status(200).send({
+  //     'message': 'I am all Boats'
+  //   })
+  // }
+  public findOne = () => {
+    return {
       'message': 'I am a single Boat'
-    })
+    }
   }
   
 
-  getAll(req: Request, res: Response) {
-    res.status(200).send({
-      'message': 'I am all Boats'
-    })
+  public getAll = () => {
+    this._logger.happy();
+    return this._repo.getAll();
   }
 
 }

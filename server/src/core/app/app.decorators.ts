@@ -1,9 +1,17 @@
-import { injectable, decorate } from 'inversify';
+import { injectable, decorate, inject, named } from 'inversify';
 
 import { AppProviderType, AppProviderMeta } from './app.schema';
 import { DecoratorTarget, DecoratorType } from '../lib/schema';
 
+// DECORATORS: UTILITY
+
+export const Repository = inject(AppProviderType.Repository);
+export const Base = inject(AppProviderType.Base);
+
+export const Name = (n: string) => named(n);
+
 // DECORATOR: PROVIDER
+
 export function AppProvider(type: AppProviderType) {
   return function(target: DecoratorTarget): void {
 

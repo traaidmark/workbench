@@ -6,12 +6,18 @@ import { DecoratorTarget } from '../lib/schema';
 export enum AppProviderType {
   Controller = 'workshop:provider:controller',
   Repository = 'workshop:provider:repository',
-  Database = 'workshop:provider:database',
-  Shared = 'workshop:provider:shared',
+  Base = 'workshop:provider:base',
+  System = 'workshop:provider:system',
   HttpContext = 'workshop:provider:http-context',
 }
 
 // SCHEMA: INTERFACES
+
+export interface AppUtilityInterface {
+  preflight(): void;
+  register(type: AppProviderType): void;
+}
+
 
 export interface ContainerInterface extends interfaces.Container {}
 
