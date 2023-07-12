@@ -6,4 +6,6 @@ import { App } from '@/core';
 
 import '@/app';
 
+console.log('ENV', process.env.NODE_ENV);
+
 new App().start();

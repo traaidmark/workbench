@@ -8,20 +8,16 @@ import {
   ProviderServiceInterface
 } from '@/core/services/provider';
 
-import { LoggerInterface, LoggerProvider } from '@/core/providers';
-
 @injectable()
 export class ProviderService implements ProviderServiceInterface {
 
   private _container: ProviderContainerInterface;
   private _util: ProviderUtilityInterface;
-  private _log: LoggerInterface;
 
   constructor() {
     this._container = new Container();
     this._util = new ProviderUtility(this._container);
     this._init();
-    this._log = new LoggerProvider();
   }
 
   // PUBLIC METHODS

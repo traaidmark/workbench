@@ -6,7 +6,9 @@ import {
   Called,
   Controller,
   Get,
-  AddService
+  AddService,
+  AddUtility,
+  LoggerProvider,
 } from '@/core';
 
 import {
@@ -20,10 +22,13 @@ import {
 @Controller(PATHS.ROUTER)
 export class BoatsController implements BoatsControllerInterface {
 
-  @AddService @Called(Boats.Service) _service: BoatsServiceInterface;
+  @AddService @Called(Boats.Service) private _service: BoatsServiceInterface;
+  @AddUtility @Called('LoggerProvider') private _log: LoggerProvider;
 
   @Get('/1')
   findOne = (req: Request, res: Response): void => {
+    
+    this._log.info('hello?');
     res.status(200).send(this._service.findOne())
   }
   
