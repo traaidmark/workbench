@@ -22,7 +22,7 @@ export interface ConstructorFunction<T = Record<string, unknown>> {
 export enum DecoratorType {
   Provider = 'workshop:decorator:provider',
   Controller = 'workshop:decorator:controller',
-  ControllerMethod = 'workshop:decorator:controller:method',
+  ControllerEndpoint = 'workshop:decorator:controller:endpoint',
 }
 
 // SCHEMA: DECORATOR INTERFACES

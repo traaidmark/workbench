@@ -4,10 +4,11 @@ import {
   ProviderType,
   Provider,
   Name,
-  AddRepo,
+  AddRepository,
   AddBase,
   Controller,
-  Get
+  Get,
+  AddUtility
 } from '@/core/services';
 
 import {
@@ -17,7 +18,7 @@ import {
 
 import { LoggerInterface } from '@/core/providers';
 
-@Provider(ProviderType.Controller)
+@Provider(ProviderType.ApiController)
 @Controller('/boats')
 export class BoatsController implements BoatsControllerInterface {
 
@@ -25,8 +26,8 @@ export class BoatsController implements BoatsControllerInterface {
   private _logger: LoggerInterface;
 
   constructor(
-    @AddRepo @Name('BoatsRepository') repo: BoatsRepositoryInterface,
-    @AddBase @Name('LoggerProvider') logger: LoggerInterface
+    @AddRepository @Name('BoatsRepository') repo: BoatsRepositoryInterface,
+    @AddUtility @Name('LoggerProvider') logger: LoggerInterface
 
   ) {
     this._repo = repo;

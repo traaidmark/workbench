@@ -49,7 +49,7 @@ export class ApiService implements ApiServiceInterface {
 
   private _registerRouter = () => {
 
-    const controllers = this._provider.getProviders(ProviderType.Controller);
+    const controllers = this._provider.getProviders(ProviderType.ApiController);
 
     controllers.forEach(c => {
 

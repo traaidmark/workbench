@@ -31,7 +31,7 @@ export class ProviderUtility implements ProviderUtilityInterface {
     }
 
     const hasControllers = this._meta.filter(
-      i => i.type === ProviderType.Controller
+      i => i.type === ProviderType.ApiController
     ).length > 0;
 
     if(!hasControllers) {

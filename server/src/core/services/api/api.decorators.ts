@@ -57,19 +57,19 @@ function endpoint(method: ApiMethodType) {
       let metaList: DecoratorMeta<ApiEndpointMeta>[] = [];
   
       const hasMeta = Reflect.hasOwnMetadata(
-        DecoratorType.ControllerMethod,
+        DecoratorType.ControllerEndpoint,
         target.constructor
       );
       
       if(!hasMeta) {
         Reflect.defineMetadata(
-          DecoratorType.ControllerMethod,
+          DecoratorType.ControllerEndpoint,
           metaList,
           target.constructor
         );
       } else {
         metaList = Reflect.getOwnMetadata(
-          DecoratorType.ControllerMethod,
+          DecoratorType.ControllerEndpoint,
           target.constructor,
         );
       }

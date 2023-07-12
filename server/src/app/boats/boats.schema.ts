@@ -8,3 +8,7 @@ export interface BoatsRepositoryInterface {
   findOne();
   getAll();
 }
+export interface BoatsServiceInterface {
+  findOne();
+  getAll();
+}

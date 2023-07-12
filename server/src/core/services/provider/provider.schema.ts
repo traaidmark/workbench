@@ -4,11 +4,13 @@ import { DecoratorTarget } from '@/core/lib/schema';
 // SCHEMA: TYPES
 
 export enum ProviderType {
-  Controller = 'workshop:provider:controller',
-  Repository = 'workshop:provider:repository',
-  Base = 'workshop:provider:base',
-  System = 'workshop:provider:system',
-  HttpContext = 'workshop:provider:http-context',
+  ApiController = 'provider:api:controller',
+  ApiRepository = 'provider:api:repository',
+  ApiService = 'provider:api:service',
+  Utility = 'provider:utility',
+  Base = 'provider:base',
+  System = 'provider:system',
+  HttpContext = 'provider:http-context',
 }
 
 // SCHEMA: INTERFACES

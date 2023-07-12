@@ -6,7 +6,9 @@ import { ProviderType, ProviderMeta } from '@/core/services/provider';
 
 // DECORATORS: UTILITY
 
-export const AddRepo = inject(ProviderType.Repository);
+export const AddRepository = inject(ProviderType.ApiRepository);
+export const AddService = inject(ProviderType.ApiService);
+export const AddUtility = inject(ProviderType.Utility);
 export const AddBase = inject(ProviderType.Base);
 
 export const Name = (n: string) => named(n);

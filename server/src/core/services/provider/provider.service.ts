@@ -43,18 +43,19 @@ export class ProviderService implements ProviderServiceInterface {
 
   private _registerProviders = (): void => {
 
-    // REGISTER BASE PROVIDERS
+    // REGISTER UTILITY PROVIDERS
 
-    this._util.register(ProviderType.Base);
+    this._util.register(ProviderType.Utility);
 
     // REGISTER SYSTEM PROVIDERS
 
     this._util.register(ProviderType.System);
 
-    // REGISTER APP PROVIDERS
+    // REGISTER API PROVIDERS
 
-    this._util.register(ProviderType.Repository);
-    this._util.register(ProviderType.Controller);
+    this._util.register(ProviderType.ApiRepository);
+    this._util.register(ProviderType.ApiService);
+    this._util.register(ProviderType.ApiController);
 
   }
   

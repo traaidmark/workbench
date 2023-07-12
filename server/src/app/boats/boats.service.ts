@@ -1,9 +1,9 @@
 import { ProviderType, Provider } from '@/core';
 
-import { BoatsRepositoryInterface } from './boats.schema';
+import { BoatsServiceInterface } from './boats.schema';
 
-@Provider(ProviderType.ApiRepository)
-export class BoatsRepository implements BoatsRepositoryInterface {
+@Provider(ProviderType.ApiService)
+export class BoatsService implements BoatsServiceInterface {
  
   findOne() {
     return{
