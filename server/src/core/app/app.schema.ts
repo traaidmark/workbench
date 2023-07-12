@@ -1,4 +1,5 @@
 import { interfaces } from 'inversify';
+import { DecoratorTarget } from '../lib/schema';
 
 // SCHEMA: TYPES
 
@@ -14,7 +15,13 @@ export enum AppProviderType {
 
 export interface ContainerInterface extends interfaces.Container {}
 
+
 export interface AppModuleInterface {
   controller: NewableFunction;
 }
 
+export interface AppProviderMeta {
+  type: AppProviderType;
+  key: string;
+  target: DecoratorTarget;
+}

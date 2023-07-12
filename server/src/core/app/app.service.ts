@@ -1,11 +1,19 @@
 import { Container } from 'inversify';
 
+import { DecoratorType } from '../lib/schema';
+import { decoratorUtility } from '../utils';
+
 import { name } from './app.constants';
-import { AppModuleInterface, ContainerInterface } from './app.schema';
+import {
+  AppModuleInterface,
+  ContainerInterface,
+  AppProviderMeta
+} from './app.schema';
 
 const meta:string = '[APP]';
 
 export class AppService {
+
   private _container: ContainerInterface;
 
   constructor() {
@@ -15,15 +23,10 @@ export class AppService {
   // PUBLIC METHODS
 
   public init(): this {
-    return this;
-  }
-  
-  public addModule = (modules: AppModuleInterface): this => {
-    console.log(modules)
-    return this;
-  }
-  public addModules = (modules: AppModuleInterface[]): this => {
-    console.log(modules)
+
+    // Action: Register Providers
+    this._registerProviders();
+
     return this;
   }
   
@@ -34,8 +37,58 @@ export class AppService {
 
   // PRIVATE METHODS
 
-  _registerProvider = <T>() => {
+  _registerProviders = (): void => {
+    console.log(`${meta}: Registering Providers...`);
+
+    const providersMeta: AppProviderMeta[] = decoratorUtility.fetchAll(DecoratorType.Provider) || [];
+
+    providersMeta.forEach((meta) => {
+
+
+      // Register the provider
+
+      this._container.bind(meta.type)
+      .to(meta.target as new (...args: never[]) => unknown)
+      .whenTargetNamed(meta.key);
+
+      // Validate the registration
+
+      if (this._container.isBound(meta.type)) {
+
+        const registeredProviders = this._container.getNamed(
+          meta.type,
+          meta.key
+        );
+
+        console.log(
+          `[CONTAINER]: Registered ${meta.type}`, 
+          registeredProviders
+        );
+        
+      }
+
+    })
 
   }
 
-};
+  // _registerProviders = <T>() => {
+  //   console.log(`${meta}: Registering Providers...`);
+
+  //   
+
+  //   providersMeta.forEach((meta) => {
+  //     this._container.bind(meta.type)
+  //     .to(meta.target as new (...args: never[]) => unknown)
+  //     .whenTargetNamed(meta.key);
+  //   }
+
+    //DEBUG SHIT
+
+    // if (this._container.isBound(meta.type)) {
+    //   const registeredProviders = this._container.getAll(meta.type)
+    //   console.log(`[CONTAINER]: Registered ${meta.type}`, registeredProviders);
+
+    
+
+  
+}

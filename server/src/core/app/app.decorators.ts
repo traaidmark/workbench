@@ -1,41 +1,37 @@
-import { Container } from 'inversify';
+import { injectable, decorate } from 'inversify';
 
-import { name } from './app.constants';
-import { AppModuleInterface, ContainerInterface } from './app.schema';
+import { AppProviderType, AppProviderMeta } from './app.schema';
+import { DecoratorTarget, DecoratorType } from '../lib/schema';
 
-const meta:string = '[APP]';
+// DECORATOR: PROVIDER
+export function AppProvider(type: AppProviderType) {
+  return function(target: DecoratorTarget): void {
 
-export class AppService {
-  private _container: ContainerInterface;
+    const currentMeta: AppProviderMeta = {
+      type,
+      key: (target as { name: string }).name,
+      target
+    }
 
-  constructor() {
-    this._container = new Container();
-  }
+    decorate(injectable(), target);
+    Reflect.defineMetadata(
+      DecoratorType.Provider,
+      currentMeta, 
+      target
+    );
 
-  // PUBLIC METHODS
+    const previousValues: AppProviderMeta[] = Reflect.getMetadata(
+      DecoratorType.Provider,
+      Reflect,
+    ) || [];
 
-  public init(): this {
-    return this;
-  }
-  
-  public addModule = (modules: AppModuleInterface): this => {
-    console.log(modules)
-    return this;
-  }
-  public addModules = (modules: AppModuleInterface[]): this => {
-    console.log(modules)
-    return this;
-  }
-  
-  public start = () => {
-    console.log('I AM STARTING');
-    return this;
-  }
+    const metaArray = [currentMeta, ...previousValues];
 
-  // PRIVATE METHODS
-
-  _registerProvider = <T>() => {
+    Reflect.defineMetadata(
+      DecoratorType.Provider,
+      metaArray,
+      Reflect,
+    );
 
   }
-
-};
+}

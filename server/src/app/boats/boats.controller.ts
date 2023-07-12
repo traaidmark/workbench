@@ -1,8 +1,11 @@
 import { Request, Response, } from 'express';
 import { inject, named  } from 'inversify';
 
+import { AppProviderType, AppProvider } from '@/core';
+
 import { BoatsControllerInterface, BoatsRepositoryInterface } from './boats.schema';
 
+@AppProvider(AppProviderType.Controller)
 export class BoatsController implements BoatsControllerInterface {
 
   // private _repository: BoatsRepositoryInterface;
