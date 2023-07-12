@@ -5,8 +5,8 @@ import { DecoratorTarget, DecoratorType } from '../lib/schema';
 
 // DECORATORS: UTILITY
 
-export const Repository = inject(AppProviderType.Repository);
-export const Base = inject(AppProviderType.Base);
+export const AddRepo = inject(AppProviderType.Repository);
+export const AddBase = inject(AppProviderType.Base);
 
 export const Name = (n: string) => named(n);
 

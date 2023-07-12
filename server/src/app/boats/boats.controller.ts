@@ -4,8 +4,8 @@ import {
   AppProviderType,
   AppProvider,
   Name,
-  Repository,
-  Base
+  AddRepo,
+  AddBase
 } from '@/core/app';
 
 import {
@@ -22,8 +22,8 @@ export class BoatsController implements BoatsControllerInterface {
   private _logger: LoggerInterface;
 
   constructor(
-    @Repository @Name('BoatsRepository') repo: BoatsRepositoryInterface,
-    @Base @Name('LoggerProvider') logger: LoggerInterface
+    @AddRepo @Name('BoatsRepository') repo: BoatsRepositoryInterface,
+    @AddBase @Name('LoggerProvider') logger: LoggerInterface
 
   ) {
     this._repo = repo;
