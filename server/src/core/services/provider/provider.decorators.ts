@@ -11,7 +11,7 @@ export const AddService = inject(ProviderType.ApiService);
 export const AddUtility = inject(ProviderType.Utility);
 export const AddBase = inject(ProviderType.Base);
 
-export const Name = (n: string) => named(n);
+export const Called = (n: string) => named(n);
 
 // DECORATOR: PROVIDER
 

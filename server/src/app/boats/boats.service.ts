@@ -1,11 +1,11 @@
-import { ProviderType, Provider, AddRepository, Name, name } from '@/core';
+import { ProviderType, Provider, AddRepository, Called, Called } from '@/core';
 
 import { BoatsServiceInterface, BoatsRepositoryInterface } from './boats.schema';
 
 @Provider(ProviderType.ApiService)
 export class BoatsService implements BoatsServiceInterface {
   
-  // @AddRepository @Name('BoatsRepository') _repo: BoatsRepositoryInterface;
+  // @AddRepository @Called('BoatsRepository') _repo: BoatsRepositoryInterface;
  
   findOne() {
     return{

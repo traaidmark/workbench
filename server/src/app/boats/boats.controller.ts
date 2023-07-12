@@ -3,7 +3,7 @@ import { Request, Response, RequestHandler } from 'express';
 import {
   ProviderType,
   Provider,
-  Name,
+  Called,
   Controller,
   Get,
   AddService
@@ -20,14 +20,14 @@ import { LoggerInterface } from '@/core/providers';
 @Controller('/boats')
 export class BoatsController implements BoatsControllerInterface {
 
-  @AddService @Name('BoatsService') _service: BoatsServiceInterface;
+  @AddService @Called('BoatsService') _service: BoatsServiceInterface;
 
   // private _repo: BoatsRepositoryInterface;
   // private _logger: LoggerInterface;
 
   // constructor(
-  //   @AddRepository @Name('BoatsRepository') repo: BoatsRepositoryInterface,
-  //   @AddUtility @Name('LoggerProvider') logger: LoggerInterface
+  //   @AddRepository @Called('BoatsRepository') repo: BoatsRepositoryInterface,
+  //   @AddUtility @Called('LoggerProvider') logger: LoggerInterface
 
   // ) {
   //   this._repo = repo;
