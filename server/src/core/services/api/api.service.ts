@@ -7,7 +7,7 @@ import express, {
   NextFunction
 } from 'express';
 
-import { ProviderService, ProviderServiceInterface, ProviderType } from '@/core/services/provider';
+import { ProviderServiceInterface, ProviderType } from '@/core/services/provider';
 
 import { ApiServiceInterface, ApiController, ApiUtility } from '@/core/services/api';
 

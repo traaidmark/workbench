@@ -51,6 +51,8 @@ function endpoint(method: ApiMethodType) {
         },
         target
       };
+
+      
   
       let metaList: DecoratorMeta<ApiEndpointMeta>[] = [];
   
