@@ -13,29 +13,16 @@ import {
 
 import AppUtility from './app.utils';
 
-import { AppProvider } from './app.decorators';
-
-import { BoatsControllerInterface, BoatsRepositoryInterface } from '@/app';
-
 export class AppService {
 
   private _container: ContainerInterface;
   private _util: AppUtilityInterface;
 
-  constructor() {
+  constructor(
+  ) {
     this._container = new Container();
     this._util = new AppUtility(this._container);
   }
-
-    // private _repository: BoatsRepositoryInterface;
-
-  // constructor(
-  //   @inject(Type.Provider.Repository) 
-  //   @named('BoatsRepository') 
-  //   repo: BoatsRepositoryInterface
-  // ) {
-  //   this._repository = repo;
-  // }
 
   // PUBLIC METHODS
 
@@ -44,8 +31,6 @@ export class AppService {
     this._util.preflight();
     
     this._registerProviders();
-
-    this._testController()
 
     return this;
   }
@@ -57,9 +42,7 @@ export class AppService {
 
   // PRIVATE METHODS
 
-  _registerProviders = (): void => {
-
-    console.log(`${name}: Registering Providers...`);
+  private _registerProviders = (): void => {
 
     // REGISTER BASE PROVIDERS
 
@@ -71,15 +54,5 @@ export class AppService {
     this._util.register(AppProviderType.Controller);
 
   }
-
-  private _testController = () => {
-
-    const testController: BoatsControllerInterface = this._container.getNamed(AppProviderType.Controller, 'BoatsController');
-
-    console.log(
-      `${name}: Controller Factory Test`, 
-      testController.getAll()
-    );
-
-  }
+  
 }
