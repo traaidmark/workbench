@@ -1,5 +1,11 @@
 import { Request, Response, RequestHandler } from 'express';
 
+export enum Boats {
+  Controller = 'BoatsController',
+  Service = 'BoatsService',
+  Repository = 'BoatsRepository',
+}
+
 export interface BoatsControllerInterface {
   findOne(req: Request, res: Response): void;
   getAll(req: Request, res: Response): void;

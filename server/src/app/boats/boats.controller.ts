@@ -10,42 +10,26 @@ import {
 } from '@/core';
 
 import {
+  PATHS,
+  Boats,
   BoatsControllerInterface,
   BoatsServiceInterface
-} from './boats.schema';
-
-import { LoggerInterface } from '@/core/providers';
+} from '@/app/boats';
 
 @Provider(ProviderType.ApiController)
-@Controller('/boats')
+@Controller(PATHS.ROUTER)
 export class BoatsController implements BoatsControllerInterface {
 
-  @AddService @Called('BoatsService') _service: BoatsServiceInterface;
-
-  // private _repo: BoatsRepositoryInterface;
-  // private _logger: LoggerInterface;
-
-  // constructor(
-  //   @AddRepository @Called('BoatsRepository') repo: BoatsRepositoryInterface,
-  //   @AddUtility @Called('LoggerProvider') logger: LoggerInterface
-
-  // ) {
-  //   this._repo = repo;
-  //   this._logger = logger;
-  // }
+  @AddService @Called(Boats.Service) _service: BoatsServiceInterface;
 
   @Get('/1')
   findOne = (req: Request, res: Response): void => {
-    res.status(200).send({
-      'message': 'I am a single Boat'
-    })
+    res.status(200).send(this._service.findOne())
   }
   
   @Get('/')
   getAll = (req: Request, res: Response): void => {
-    res.status(200).send({
-      'message': 'I am all Boats'
-    })
+    res.status(200).send(this._service.getAll())
   }
 
 

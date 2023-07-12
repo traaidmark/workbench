@@ -5,8 +5,6 @@ import {
   ProviderType,
   ProviderUtilityInterface,
   ProviderUtility,
-  AddBase,
-  Name,
   ProviderServiceInterface
 } from '@/core/services/provider';
 
