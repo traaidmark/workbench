@@ -7,22 +7,27 @@ import express, {
   NextFunction
 } from 'express';
 
-const meta:string = '[SERVER]';
+import { ProviderService, ProviderServiceInterface, ProviderType } from '@/core/services/provider';
 
-export class ApiServer {
-  // private _container: Int.Container;
+import { ApiServiceInterface, ApiController, ApiUtility } from '@/core/services/api';
+
+const meta:string = '[API SERVICE]';
+
+export class ApiService implements ApiServiceInterface {
+  private _provider: ProviderServiceInterface;
   private _app: Application;
   private _router: Router;
+  private _util: ApiUtility;
 
   constructor(
-    // container: Int.Container,
+    provider: ProviderServiceInterface
   ){
-    // this._container = container;
+    this._provider = provider;
     
     this._app = express();
     this._router = Router();
+    this._util = new ApiUtility();
     
-
     // this.applyMiddleware();
   }
 
@@ -33,7 +38,7 @@ export class ApiServer {
     return this;
   }
   
-  public start() {
+  public start(): void {
     this._app.listen(4000, () => {
       console.log(`${meta}: Listening on port ${4000}`);
     })
@@ -42,39 +47,26 @@ export class ApiServer {
 
   // PRIVATE METHODS
 
-  private _registerRouter() {
+  private _registerRouter = () => {
 
-    // FAKE HTTP CONTEXT?!
-    // this._container
-    //   .bind<Int.ApiHttpContext>(Type.Provider.HttpContext)
-    //   .toConstantValue({} as Int.ApiHttpContext);
+    const controllers = this._provider.getProviders(ProviderType.Controller);
 
-    // const controllers = this._container.getAll(Type.Provider.Controller);
+    controllers.forEach(c => {
 
-    // controllers.forEach(c => {
-      
-    //   const app: Int.ApiControllerMeta = controllerUtils.fetch(c.constructor);
+      const controller: ApiController = this._util.fetch(c.constructor);
 
-    //   // console.log(`${meta}: Method Meta`, app);
-
-    //   app.methods.forEach((m) => {
+      controller.endpoints.forEach((endpoint) => {
+        const handler: RequestHandler = c[endpoint.key];
         
-    //     const handler:express.RequestHandler = c[m.key];
+        this._router[endpoint.method](
+          `${controller.path}${endpoint.path}`, 
+          [], 
+          handler
+        );
 
-    //     this._router[m.method](
-    //       `${app.prefix}${m.path}`, 
-    //       [], 
-    //       handler
-    //     );
-    //   });
+      })
 
-    // });
-
-    this._router['get'](
-      `/`, 
-      [], 
-      (req, res) => res.send({message: 'hello this is basic server'})
-    );
+    });
 
     this._app.use('/', this._router);
 

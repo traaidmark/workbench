@@ -2,8 +2,8 @@ import 'reflect-metadata';
 import 'module-alias/register';
 import 'dotenv/config';
 
-import { ProviderService } from '@/core';
+import { App } from '@/core';
 
 import '@/app';
 
-new ProviderService().start();
+new App().start();

@@ -1,5 +1,5 @@
 import { DecoratorType } from '@/core/lib/schema';
-import { decoratorUtility } from '@/core/utils';
+import { DecoratorUtility } from '@/core/utils';
 
 import {
   ProviderMeta,
@@ -12,11 +12,14 @@ import {
 export class ProviderUtility implements ProviderUtilityInterface {
   
   private _container: ProviderContainerInterface;
+  private _metaUtil: DecoratorUtility;
   private _meta: ProviderMeta[];
 
   constructor(container: ProviderContainerInterface) {
     this._container = container;
-    this._meta = decoratorUtility.fetchAll(DecoratorType.Provider) || [];
+    this._metaUtil = new DecoratorUtility();
+
+    this._meta = this._metaUtil.fetchAll(DecoratorType.Provider) || [];
   }
 
   // DO PREFLIGHT CHECKS
@@ -52,6 +55,15 @@ export class ProviderUtility implements ProviderUtilityInterface {
       });
     }
     
+  }
+
+  // GET PROVIDERS
+
+  getProviders = (type: ProviderType) => {
+    if (this._container.isBound(type)) {
+      const providers = this._container.getAll(type) || [];
+      return providers;
+    }
   }
 
 }

@@ -13,9 +13,14 @@ export enum ProviderType {
 
 // SCHEMA: INTERFACES
 
+export interface ProviderServiceInterface {
+  getProviders(type: ProviderType)
+}
+
 export interface ProviderUtilityInterface {
   preflight(): void;
   register(type: ProviderType): void;
+  getProviders(type: ProviderType): void;
 }
 
 export interface ProviderContainerInterface extends interfaces.Container {}

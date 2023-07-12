@@ -6,13 +6,14 @@ import {
   ProviderUtilityInterface,
   ProviderUtility,
   AddBase,
-  Name
+  Name,
+  ProviderServiceInterface
 } from '@/core/services/provider';
 
 import { LoggerInterface, LoggerProvider } from '@/core/providers';
 
 @injectable()
-export class ProviderService {
+export class ProviderService implements ProviderServiceInterface {
 
   private _container: ProviderContainerInterface;
   private _util: ProviderUtilityInterface;
@@ -26,11 +27,9 @@ export class ProviderService {
   }
 
   // PUBLIC METHODS
-  
-  public start = () => {
-    this._log.happy();
-    console.log('I AM STARTING');
-    return this;
+
+  public getProviders = (type: ProviderType) => {
+    return this._util.getProviders(type);
   }
 
   // PRIVATE METHODS

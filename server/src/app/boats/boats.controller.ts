@@ -5,8 +5,10 @@ import {
   Provider,
   Name,
   AddRepo,
-  AddBase
-} from '@/core/services/provider';
+  AddBase,
+  Controller,
+  Get
+} from '@/core/services';
 
 import {
   BoatsControllerInterface,
@@ -16,6 +18,7 @@ import {
 import { LoggerInterface } from '@/core/providers';
 
 @Provider(ProviderType.Controller)
+@Controller('/boats')
 export class BoatsController implements BoatsControllerInterface {
 
   private _repo: BoatsRepositoryInterface;
@@ -30,30 +33,20 @@ export class BoatsController implements BoatsControllerInterface {
     this._logger = logger;
   }
 
-
-  // findOne(req: Request, res: Response): void {
-  //   res.status(200).send({
-  //     'message': 'I am a single Boat'
-  //   })
-  // }
-  
-
-  // getAll(req: Request, res: Response): void {
-  //   res.status(200).send({
-  //     'message': 'I am all Boats'
-  //   })
-  // }
-  public findOne = () => {
-    return {
+  @Get('/1')
+  findOne = (req: Request, res: Response): void => {
+    res.status(200).send({
       'message': 'I am a single Boat'
-    }
+    })
   }
   
-
-  public getAll = () => {
-    this._logger.happy();
-    return this._repo.getAll();
+  @Get('/')
+  getAll = (req: Request, res: Response): void => {
+    res.status(200).send({
+      'message': 'I am all Boats'
+    })
   }
+
 
 }
 

@@ -21,6 +21,8 @@ export interface ConstructorFunction<T = Record<string, unknown>> {
 
 export enum DecoratorType {
   Provider = 'workshop:decorator:provider',
+  Controller = 'workshop:decorator:controller',
+  ControllerMethod = 'workshop:decorator:controller:method',
 }
 
 // SCHEMA: DECORATOR INTERFACES
@@ -34,10 +36,10 @@ export type DecoratorHandler = (
   value: unknown
 ) => void;
 
-export interface DecoratorMeta {
-  target: DecoratorTarget,
-  key: string,
-  value: unknown
+export interface DecoratorMeta<T> {
+  target: DecoratorTarget;
+  key: string;
+  value: T;
 }
 
 // SCHEMA: EXPRESS INTERFACES
