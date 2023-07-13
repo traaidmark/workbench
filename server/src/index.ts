@@ -4,8 +4,12 @@ import 'dotenv/config';
 
 import { App } from '@/core';
 
-import '@/app';
+import '@/app/modules';
+
+import config from '@/config';
 
 console.log('ENV', process.env.NODE_ENV);
 
-new App().start();
+const app = new App(config);
+
+app.start();

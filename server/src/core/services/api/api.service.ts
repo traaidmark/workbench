@@ -9,43 +9,76 @@ import express, {
 
 import { ProviderServiceInterface, ProviderType } from '@/core/services/provider';
 
-import { ApiServiceInterface, ApiController, ApiUtility } from '@/core/services/api';
+import {
+  DEFAULT_OPTS,
+  IApiService,
+  ApiController,
+  ApiUtility,
+  ApiMiddleware,
+  ApiOptions,
+  IApiMeta
+} from '@/core/services/api';
+import { ApiMeta } from './classes';
 
 const meta:string = '[API SERVICE]';
 
-export class ApiService implements ApiServiceInterface {
+export class ApiService implements IApiService {
   private _provider: ProviderServiceInterface;
   private _app: Application;
   private _router: Router;
   private _util: ApiUtility;
+  private _opts: ApiOptions;
+  private _meta: IApiMeta;
 
   constructor(
-    provider: ProviderServiceInterface
+    provider: ProviderServiceInterface,
+    options: ApiOptions,
   ){
     this._provider = provider;
     
     this._app = express();
     this._router = Router();
     this._util = new ApiUtility();
+
+    this._opts = {...DEFAULT_OPTS, ...options};
+
+    this._meta = new ApiMeta(
+      `${this._opts.url}:${this._opts.port}${this._opts.route}`
+    );
+
+    // BUILD
+    this._builder();
     
     // this.applyMiddleware();
   }
 
   // PUBLIC METHODS
 
-  public build(): this {
-    this._registerRouter();
-    return this;
+  public reporter(): void {
+
   }
   
   public start(): void {
-    this._app.listen(4000, () => {
-      console.log(`${meta}: Listening on port ${4000}`);
+    this._app.listen(this._opts.port, () => {
+      this._meta.report();
+      // console.log(`${meta}: Api Started!`);
+      // console.log(`${meta}: URL: ${this._meta.url}`);
     })
   }
 
-
   // PRIVATE METHODS
+
+  private _builder() {
+    this._applyMiddleware(this._opts.middleware);
+    this._registerRouter();
+  }
+
+  private _applyMiddleware(middlewares: ApiMiddleware[]): this {
+    middlewares.forEach((m) => {
+      this._app.use(m);
+    });
+    return this;
+  }
 
   private _registerRouter = () => {
 
@@ -55,20 +88,18 @@ export class ApiService implements ApiServiceInterface {
 
       const controller: ApiController = this._util.fetch(c.constructor);
 
+      this._meta.add(controller);
+
       controller.endpoints.forEach((endpoint) => {
         const handler: RequestHandler = c[endpoint.key];
+        const path: string = `${controller.path}${endpoint.path}`;
         
-        this._router[endpoint.method](
-          `${controller.path}${endpoint.path}`, 
-          [], 
-          handler
-        );
-
+        this._router[endpoint.method](path, [], handler)
       })
 
     });
 
-    this._app.use('/', this._router);
+    this._app.use(this._opts.route, this._router);
 
   }
 };

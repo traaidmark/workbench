@@ -1,6 +1,6 @@
 import { ProviderType, Provider } from '@/core';
 
-import { IUserRepository } from '@/app/user';
+import { IUserRepository } from '@/app/modules/user';
 
 @Provider(ProviderType.ApiRepository)
 export class UserRepository implements IUserRepository {

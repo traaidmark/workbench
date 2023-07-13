@@ -28,15 +28,29 @@ export enum ApiStatusCode {
 
 // SCHEMA: INTERFACES
 
-export interface ApiServiceInterface {
-  build(): this;
+export interface IApiService {
   start(): void;
+}
+
+export interface IApiMeta {
+  report(): void;
+  add(c: ApiController): void;
+}
+
+export interface ApiOptions {
+  port?: number;
+  route?: string;
+  url?: string;
+  middleware?: ApiMiddleware[];
 }
 
 export interface ApiUtilityInterface {
 }
 
 export type ApiMiddleware = (string | symbol | RequestHandler);
+export type ApiMiddlewares = {
+  server: ApiMiddleware[],
+};
 
 
 export interface ApiControllerMeta {
@@ -48,6 +62,7 @@ export interface ApiEndpointMeta extends ApiControllerMeta {
 }
 
 export interface ApiController {
+  key: string;
   path: string;
   middleware: ApiMiddleware[];
   endpoints: ApiEndpoint[];
@@ -59,3 +74,5 @@ export interface ApiEndpoint {
   path: string;
   middleware: ApiMiddleware[];
 }
+
+

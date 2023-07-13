@@ -4,7 +4,7 @@ import {
   IUserService,
   IUserRepository,
   CONFIG,
-} from '@/app/user';
+} from '@/app/modules/user';
 
 @Provider(ProviderType.ApiService)
 export class UserService implements IUserService {

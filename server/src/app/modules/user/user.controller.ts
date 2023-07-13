@@ -13,7 +13,7 @@ import {
   CONFIG,
   IUserController,
   IUserService
-} from '@/app/user';
+} from '@/app/modules/user';
 
 @Provider(ProviderType.ApiController)
 @Controller(CONFIG.routes.prefix)

@@ -18,6 +18,7 @@ export class ApiUtility implements ApiUtilityInterface {
     const endpoints: DecoratorMeta<ApiEndpointMeta>[] = this._metaUtil.fetchAllFor(DecoratorType.ControllerEndpoint, constructor);
 
     return {
+      key: controller.key,
       path: controller.value.path,
       middleware: controller.value.middleware,
       endpoints: endpoints.map(e => {
