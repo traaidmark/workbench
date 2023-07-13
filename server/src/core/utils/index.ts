@@ -1,5 +1,7 @@
 import { DecoratorType, DecoratorTarget } from '../lib/schema';
 
+// UTILITY: DECORATORS
+
 export class DecoratorUtility {
 
   // FETCH SINGLE
@@ -30,3 +32,5 @@ export class DecoratorUtility {
   }
 
 }
+
+// UTILITY: CONVENTIONS
