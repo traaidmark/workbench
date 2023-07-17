@@ -16,7 +16,7 @@ export interface UserModel {
 // SCHEMA: PROVIDER: REPOSITORY
 
 export interface UserRepoInterface {
-  fetchAll(): UserModel[];
+  fetchAll(): Promise<UserModel[]>;
 }
 
 // SCHEMA: PROVIDER: SERVICE
