@@ -2,13 +2,21 @@
 import { Response } from 'express';
 
 export class ApiResponse {
+  
+  private _res: Response;
+  private _data: any;
 
-  public respond = (res: Response, data: any) => {
-    return {
+  constructor(res: Response, data: any) {
+    this._res = res;
+    this._data = data;
+  }
+
+  public send = (): Response => {
+    return this._res.send({
       code: 200,
       message: 'string',
-      data: data,
-    }
+      data: this._data,
+    });
   }
 
 }

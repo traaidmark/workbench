@@ -9,7 +9,7 @@ import {
   AddService,
 } from '@/core';
 
-import { ApiResponse } from '@/core/services/api';
+import { ApiResponse, ApiResponseBody } from '@/core/services/api';
 
 import { ApiBaseController } from '@/core/services/api/classes/api.controller.class';
 
@@ -26,9 +26,9 @@ export class UserController {
   @AddService @Called(CONFIG.names.Service) private _service: IUserService;
 
   @Get('/')
-  getRandom = (req: Request, res: Response): ApiResponse => {
-    const send = new ApiResponse(res)
-    return send(this._service.getRandom());
+  getRandom = (req: Request, res: Response): Response => {
+    const response = new ApiResponse(res, this._service.getRandom()).send();
+    return response;
   };
 
 }
