@@ -1,17 +1,15 @@
 import { ProviderType, Provider } from '@/core';
 
-import { IUserRepository, User } from '@/app/modules/user';
-
-import { UserUtils } from '@/app/utils/user.utils';
+import { IMockRepository, Mock } from '@/app/modules/mock';
 
 
 // ESM
 import { faker } from '@faker-js/faker';
 
-export function createRandomUser(): User {
+export function createRandomMock(): Mock {
   return {
     id: faker.string.uuid(),
-    username: faker.internet.email(),
+    Mockname: faker.internet.email(),
     password: faker.internet.password(),
     createdAt: faker.date.past(),
     updatedAt: faker.date.past(),
@@ -19,21 +17,19 @@ export function createRandomUser(): User {
   };
 }
 
-export const USERS: any[] = faker.helpers.multiple(createRandomUser, {
+export const MockS: any[] = faker.helpers.multiple(createRandomMock, {
   count: 5,
 });
 
 @Provider(ProviderType.ApiRepository)
-export class UserRepository implements IUserRepository {
+export class MockRepository implements IMockRepository {
  
   getRandom() {
     const data = new Promise((resolve, reject) => {
 
-      const userMock = new UserUtils();
+      console.log('DATA GENERATED?', MockS);
 
-      console.log('DATA GENERATED?', USERS);
-
-      resolve(userMock.generate());
+      resolve([]);
     });
 
     return data;

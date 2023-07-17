@@ -1,25 +1,25 @@
 import { Request, Response, RequestHandler } from 'express';
 
-export interface IUserBase {
+export interface IMockBase {
   getRandom(): void;
 }
 
 // INTERFACES: MODULES
 
-export interface IUserController {
+export interface IMockController {
   getRandom(req: Request, res: Response): void;
 }
-export interface IUserRepository extends IUserBase {
+export interface IMockRepository extends IMockBase {
 }
-export interface IUserService extends IUserBase {
+export interface IMockService extends IMockBase {
 }
 
 
-// INTERFACES: USER
+// INTERFACES: Mock
 
-export interface User {
+export interface Mock {
   id: string;
-  username: string;
+  Mockname: string;
   password: string;
   createdAt: Date;
   updatedAt?: Date;
