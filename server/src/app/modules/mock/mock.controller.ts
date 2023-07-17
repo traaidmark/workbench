@@ -10,8 +10,6 @@ import {
   InjectService,
 } from '@/core/services/api';
 
-import { ApiBaseController } from '@/core/services/api/classes/api.controller.class';
-
 import {
   CONFIG,
   IMockController,
