@@ -2,7 +2,6 @@ import { ProviderType, Provider } from '@/core';
 
 import { IMockRepository, Mock } from '@/app/modules/mock';
 
-
 // ESM
 import { faker } from '@faker-js/faker';
 

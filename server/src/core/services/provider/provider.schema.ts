@@ -11,7 +11,7 @@ export enum ProviderType {
   Utility = 'provider:utility',
   Base = 'provider:base',
   System = 'provider:system',
-  
+  DataSource = 'provider:data-source',
 }
 
 // SCHEMA: INTERFACES
