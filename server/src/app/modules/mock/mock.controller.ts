@@ -1,15 +1,14 @@
 import { Request, Response, RequestHandler } from 'express';
 
-import {
-  ProviderType,
-  Provider,
-  Called,
-  Controller,
-  Get,
-  AddService,
-} from '@/core';
+import { Called } from '@/core/services/provider';
 
-import { ApiResponse, ApiResponseBody } from '@/core/services/api';
+import {
+  AddController,
+  Controller,
+  ApiResponse,
+  Get,
+  InjectService,
+} from '@/core/services/api';
 
 import { ApiBaseController } from '@/core/services/api/classes/api.controller.class';
 
@@ -19,11 +18,11 @@ import {
   IMockService
 } from '@/app/modules/mock';
 
-@Provider(ProviderType.ApiController)
+@AddController
 @Controller(CONFIG.routes.prefix)
 export class MockController {
 
-  @AddService @Called(CONFIG.names.Service) private _service: IMockService;
+  @InjectService @Called(CONFIG.names.Service) private _service: IMockService;
 
   @Get('/')
   getRandom = async (req: Request, res: Response): Promise<Response> => {

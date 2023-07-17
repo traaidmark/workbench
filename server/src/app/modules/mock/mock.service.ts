@@ -1,15 +1,19 @@
 import { ProviderType, Provider, AddRepository, Called } from '@/core';
 
 import {
+  CONFIG,
   IMockService,
   IMockRepository,
-  CONFIG,
 } from '@/app/modules/mock';
 
-@Provider(ProviderType.ApiService)
+import {
+  AddService, InjectRepository,
+} from '@/core/services/api';
+
+@AddService
 export class MockService implements IMockService {
   
-  @AddRepository @Called(CONFIG.names.Repository) _repo: IMockRepository;
+  @InjectRepository @Called(CONFIG.names.Repository) _repo: IMockRepository;
  
   getRandom = async (): Promise<unknown> => {
 

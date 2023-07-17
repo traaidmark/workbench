@@ -12,7 +12,7 @@ export class ApiUtility implements ApiUtilityInterface {
     this._metaUtil = new DecoratorUtility();
   }
 
-  fetch(constructor: ConstructorFunction): ApiController {
+  fetch(constructor: ConstructorFunction): ApiControllerMeta {
 
     const controller: DecoratorMeta<ApiControllerMeta> = this._metaUtil.fetchSingle(DecoratorType.Controller, constructor);
     const endpoints: DecoratorMeta<ApiEndpointMeta>[] = this._metaUtil.fetchAllFor(DecoratorType.ControllerEndpoint, constructor);

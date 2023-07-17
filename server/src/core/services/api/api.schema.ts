@@ -63,7 +63,7 @@ export interface IApiService {
 
 export interface IApiMeta {
   report(): void;
-  add(c: ApiController): void;
+  add(c: ApiControllerMeta): void;
 }
 
 export interface ApiOptions {
@@ -84,15 +84,15 @@ export type ApiMiddlewares = {
 // SCHEMA: METADATA
 
 
-export interface ApiControllerMeta {
+export interface ApiRouteMeta {
   path: string;
   middleware: ApiMiddleware[];
 }
-export interface ApiEndpointMeta extends ApiControllerMeta {
+export interface ApiEndpointMeta extends ApiRouteMeta {
   method: ApiMethodType;
 }
 
-export interface ApiController {
+export interface ApiControllerMeta {
   key: string;
   path: string;
   middleware: ApiMiddleware[];

@@ -4,17 +4,24 @@ import { DecoratorTarget, DecoratorType, DecoratorMeta, ConstructorFunction } fr
 
 
 
-import { ApiControllerMeta, ApiEndpointMeta, ApiMiddleware,  ApiMethodType } from '@/core/services/api';
-import { ProviderType } from '@/core/services/provider';
+import { ApiRouteMeta, ApiEndpointMeta, ApiMiddleware,  ApiMethodType } from '@/core/services/api';
+import { Provider, ProviderType } from '@/core/services/provider';
+
+// DECORATOR: HELPERS
+
+export const AddController = Provider(ProviderType.ApiController);
+export const AddService = Provider(ProviderType.ApiService);
+export const AddRepository = Provider(ProviderType.ApiRepository);
+
+export const InjectRepository = inject(ProviderType.ApiRepository);
+export const InjectService = inject(ProviderType.ApiService);
 
 // DECORATOR: CONTROLLER
-
-export const injectHttpContext = inject(ProviderType.ApiHttpContext);
 
 export function Controller(path: string, ...middleware: ApiMiddleware[]) {
   return function(target: DecoratorTarget): void {
 
-    const current: DecoratorMeta<ApiControllerMeta> = {
+    const current: DecoratorMeta<ApiRouteMeta> = {
       key: (target as { name: string }).name,
       value: {
         path,
@@ -22,10 +29,10 @@ export function Controller(path: string, ...middleware: ApiMiddleware[]) {
       },
       target
     }
-
+    Provider(ProviderType.ApiController);
     Reflect.defineMetadata(DecoratorType.Controller, current, target);
 
-    const previousValues: DecoratorMeta<ApiControllerMeta>[] = Reflect.getMetadata(
+    const previousValues: DecoratorMeta<ApiRouteMeta>[] = Reflect.getMetadata(
       DecoratorType.Controller,
       Reflect,
     ) || [];
@@ -44,7 +51,7 @@ export function Controller(path: string, ...middleware: ApiMiddleware[]) {
 
 // DECORATOR: METHODS
 
-function endpoint(method: ApiMethodType) {
+function ApiMethod(method: ApiMethodType) {
 
   return function(path: string, ...middleware: ApiMiddleware[]) {
     return function(target: DecoratorTarget, key: string):void  {
@@ -87,5 +94,6 @@ function endpoint(method: ApiMethodType) {
   }
 }
 
-export const Get = endpoint(ApiMethodType.Get);
-export const Post = endpoint(ApiMethodType.Post);
+export const Get = ApiMethod(ApiMethodType.Get);
+export const Post = ApiMethod(ApiMethodType.Post);
+

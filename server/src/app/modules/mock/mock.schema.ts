@@ -13,15 +13,3 @@ export interface IMockRepository extends IMockBase {
 }
 export interface IMockService extends IMockBase {
 }
-
-
-// INTERFACES: Mock
-
-export interface Mock {
-  id: string;
-  Mockname: string;
-  password: string;
-  createdAt: Date;
-  updatedAt?: Date;
-  lastAuthAt?: Date;
-}

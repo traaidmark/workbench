@@ -6,8 +6,6 @@ import { ProviderType, ProviderMeta } from '@/core/services/provider';
 
 // DECORATORS: UTILITY
 
-export const AddRepository = inject(ProviderType.ApiRepository);
-export const AddService = inject(ProviderType.ApiService);
 export const AddUtility = inject(ProviderType.Utility);
 export const AddBase = inject(ProviderType.Base);
 
@@ -46,3 +44,6 @@ export function Provider(type: ProviderType) {
 
   }
 }
+
+export const Utility = Provider(ProviderType.Utility);
+export const DataSource = Provider(ProviderType.DataSource);
