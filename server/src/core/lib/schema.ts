@@ -23,6 +23,7 @@ export enum DecoratorType {
   Provider = 'workshop:decorator:provider',
   Controller = 'workshop:decorator:controller',
   ControllerEndpoint = 'workshop:decorator:controller:endpoint',
+  ApiHttpContext = 'workshop:decorator:api:http-context',
 }
 
 // SCHEMA: DECORATOR INTERFACES

@@ -26,6 +26,8 @@ export class ProviderService implements ProviderServiceInterface {
     return this._util.getProviders(type);
   }
 
+  public instance = (): ProviderContainerInterface => this._container;
+
   // PRIVATE METHODS
 
   private _init(): void {

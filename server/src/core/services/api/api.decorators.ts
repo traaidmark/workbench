@@ -1,8 +1,15 @@
+import { inject } from 'inversify';
+
 import { DecoratorTarget, DecoratorType, DecoratorMeta, ConstructorFunction } from '@/core/lib/schema';
 
-import { ApiControllerMeta, ApiEndpointMeta, ApiMiddleware,  ApiMethodType } from './api.schema';
+
+
+import { ApiControllerMeta, ApiEndpointMeta, ApiMiddleware,  ApiMethodType } from '@/core/services/api';
+import { ProviderType } from '@/core/services/provider';
 
 // DECORATOR: CONTROLLER
+
+export const injectHttpContext = inject(ProviderType.ApiHttpContext);
 
 export function Controller(path: string, ...middleware: ApiMiddleware[]) {
   return function(target: DecoratorTarget): void {

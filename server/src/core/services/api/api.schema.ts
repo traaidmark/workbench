@@ -1,4 +1,5 @@
-import { RequestHandler } from 'express';
+import { RequestHandler, Request, Response, NextFunction} from 'express';
+import { ProviderContainerInterface } from '../provider';
 import { DecoratorMeta } from '@/core/lib/schema';
 
 // SCHEMA: TYPES
@@ -26,6 +27,34 @@ export enum ApiStatusCode {
   INTERNAL_SERVER = 500,
 }
 
+export enum ApiParamType {
+  REQUEST,
+  RESPONSE,
+  PARAMS,
+  QUERY,
+  BODY,
+  HEADERS,
+  COOKIES,
+  NEXT,
+  PRINCIPAL
+}
+
+// SCHEMA: HTTP
+
+export interface ApiHttpContext<T = unknown> {
+  container: ProviderContainerInterface;
+  request: Request;
+  response: Response;
+  // user: Principal<T>;
+}
+
+
+// SCHEMA: SERVICE INTERFACES
+
+export type ApiControllerHandler = (...params: Array<unknown>) => unknown;
+export type IApiController = Record<string, ApiControllerHandler>;
+
+
 // SCHEMA: INTERFACES
 
 export interface IApiService {
@@ -52,6 +81,8 @@ export type ApiMiddlewares = {
   server: ApiMiddleware[],
 };
 
+// SCHEMA: METADATA
+
 
 export interface ApiControllerMeta {
   path: string;
@@ -75,4 +106,14 @@ export interface ApiEndpoint {
   middleware: ApiMiddleware[];
 }
 
+// SCHEMA: CLASSES: CONTROLLER
 
+export interface IApiBaseController {
+  send()
+}
+
+export interface ApiResponse<T> {
+  code: number;
+  message: string;
+  data: T
+}

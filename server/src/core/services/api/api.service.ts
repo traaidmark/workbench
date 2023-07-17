@@ -7,7 +7,7 @@ import express, {
   NextFunction
 } from 'express';
 
-import { ProviderServiceInterface, ProviderType } from '@/core/services/provider';
+import { Provider, ProviderServiceInterface, ProviderType } from '@/core/services/provider';
 
 import {
   DEFAULT_OPTS,
@@ -16,9 +16,14 @@ import {
   ApiUtility,
   ApiMiddleware,
   ApiOptions,
-  IApiMeta
+  IApiMeta,
+  ApiHttpContext,
+  ApiControllerHandler,
+  ApiParameterMetadata,
+  ApiExtractedParameters
 } from '@/core/services/api';
 import { ApiMeta } from './classes';
+import { DecoratorType } from '@/core/lib/schema';
 
 const meta:string = '[API SERVICE]';
 
@@ -69,6 +74,7 @@ export class ApiService implements IApiService {
   // PRIVATE METHODS
 
   private _builder() {
+
     this._applyMiddleware(this._opts.middleware);
     this._registerRouter();
   }
@@ -79,6 +85,8 @@ export class ApiService implements IApiService {
     });
     return this;
   }
+
+  // ROUTES
 
   private _registerRouter = () => {
 
@@ -91,6 +99,11 @@ export class ApiService implements IApiService {
       this._meta.add(controller);
 
       controller.endpoints.forEach((endpoint) => {
+
+        // const handler: RequestHandler = this._handlerFactory(
+        //   controller.key,
+        //   endpoint.key
+        // );
         const handler: RequestHandler = c[endpoint.key];
         const path: string = `${controller.path}${endpoint.path}`;
         
@@ -102,4 +115,5 @@ export class ApiService implements IApiService {
     this._app.use(this._opts.route, this._router);
 
   }
+
 };

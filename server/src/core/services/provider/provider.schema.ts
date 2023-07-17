@@ -7,16 +7,18 @@ export enum ProviderType {
   ApiController = 'provider:api:controller',
   ApiRepository = 'provider:api:repository',
   ApiService = 'provider:api:service',
+  ApiHttpContext = 'provider:api:http-context',
   Utility = 'provider:utility',
   Base = 'provider:base',
   System = 'provider:system',
-  HttpContext = 'provider:http-context',
+  
 }
 
 // SCHEMA: INTERFACES
 
 export interface ProviderServiceInterface {
-  getProviders(type: ProviderType)
+  getProviders(type: ProviderType);
+  instance(): ProviderContainerInterface;
 }
 
 export interface ProviderUtilityInterface {
