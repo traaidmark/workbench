@@ -24,12 +24,9 @@ export const MockS: any[] = faker.helpers.multiple(createRandomMock, {
 @Provider(ProviderType.ApiRepository)
 export class MockRepository implements IMockRepository {
  
-  getRandom() {
+  getRandom = async () => {
     const data = new Promise((resolve, reject) => {
-
-      console.log('DATA GENERATED?', MockS);
-
-      resolve([]);
+      resolve(MockS);
     });
 
     return data;

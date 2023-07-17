@@ -26,8 +26,9 @@ export class MockController {
   @AddService @Called(CONFIG.names.Service) private _service: IMockService;
 
   @Get('/')
-  getRandom = (req: Request, res: Response): Response => {
-    const response = new ApiResponse(res, this._service.getRandom()).send();
+  getRandom = async (req: Request, res: Response): Promise<Response> => {
+    const data = await this._service.getRandom();
+    const response = new ApiResponse(res, data).send();
     return response;
   };
 
