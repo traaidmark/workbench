@@ -1,31 +1,19 @@
 import { IMockRepository } from '@/app/modules/mock';
 
+import { InjectDataSource, Called } from '@/core/services/provider';
 import { CreateRepository } from '@/core/services/api';
 
-// ESM
-import { faker } from '@faker-js/faker';
-
-export function createRandomMock() {
-  return {
-    id: faker.string.uuid(),
-    Mockname: faker.internet.email(),
-    password: faker.internet.password(),
-    createdAt: faker.date.past(),
-    updatedAt: faker.date.past(),
-    lastAuthAt: faker.date.past(),
-  };
-}
-
-export const MockS: any[] = faker.helpers.multiple(createRandomMock, {
-  count: 5,
-});
+import { IMockDataSource } from '@/core/providers';
 
 @CreateRepository
 export class MockRepository implements IMockRepository {
+  
+  @InjectDataSource @Called('MockDataSource') private _source: IMockDataSource;
  
   getRandom = async () => {
+    console.log('Hello:', this._source.generate())
     const data = new Promise((resolve, reject) => {
-      resolve(MockS);
+      resolve(this._source.generate());
     });
 
     return data;

@@ -45,7 +45,7 @@ export class ProviderService implements ProviderServiceInterface {
 
     // REGISTER SYSTEM PROVIDERS
 
-    this._util.register(ProviderType.System);
+    this._util.register(ProviderType.DataSource);
 
     // REGISTER API PROVIDERS
 
