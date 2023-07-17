@@ -1,4 +1,0 @@
-
-
-// ENTITY: MOCK TEMP
-

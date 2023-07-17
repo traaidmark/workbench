@@ -12,11 +12,11 @@ import { ProviderServiceInterface, ProviderType } from '@/core/services/provider
 import {
   DEFAULT_OPTS,
   IApiService,
-  ApiControllerMeta,
   ApiUtility,
   ApiMiddleware,
   ApiOptions,
   IApiMeta,
+  ApiControllerMeta
 } from '@/core/services/api';
 import { ApiMeta } from './classes';
 import { DecoratorType } from '@/core/lib/schema';
