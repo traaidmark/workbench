@@ -1,10 +1,6 @@
-import { ProviderType, Provider } from '@/core';
-
 import { IMockRepository } from '@/app/modules/mock';
 
-import {
-  AddRepository,
-} from '@/core/services/api';
+import { CreateRepository } from '@/core/services/api';
 
 // ESM
 import { faker } from '@faker-js/faker';
@@ -24,7 +20,7 @@ export const MockS: any[] = faker.helpers.multiple(createRandomMock, {
   count: 5,
 });
 
-@AddRepository
+@CreateRepository
 export class MockRepository implements IMockRepository {
  
   getRandom = async () => {

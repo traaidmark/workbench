@@ -7,20 +7,16 @@ import express, {
   NextFunction
 } from 'express';
 
-import { Provider, ProviderServiceInterface, ProviderType } from '@/core/services/provider';
+import { ProviderServiceInterface, ProviderType } from '@/core/services/provider';
 
 import {
   DEFAULT_OPTS,
   IApiService,
-  ApiController,
+  ApiControllerMeta,
   ApiUtility,
   ApiMiddleware,
   ApiOptions,
   IApiMeta,
-  ApiHttpContext,
-  ApiControllerHandler,
-  ApiParameterMetadata,
-  ApiExtractedParameters
 } from '@/core/services/api';
 import { ApiMeta } from './classes';
 import { DecoratorType } from '@/core/lib/schema';
@@ -94,7 +90,7 @@ export class ApiService implements IApiService {
 
     controllers.forEach(c => {
 
-      const controller: ApiController = this._util.fetch(c.constructor);
+      const controller: ApiControllerMeta = this._util.fetch(c.constructor);
 
       this._meta.add(controller);
 

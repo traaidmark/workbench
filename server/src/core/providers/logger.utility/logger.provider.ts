@@ -1,10 +1,10 @@
 import winston from 'winston';
 
-import { Utility } from '@/core/services/provider'
+import { CreateUtility } from '@/core/services/provider'
 
 import {LoggerInterface} from './logger.schema';
 
-@Utility
+@CreateUtility
 export class LoggerProvider {
     private customLevels = {
         levels: {

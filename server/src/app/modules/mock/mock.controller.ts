@@ -1,9 +1,8 @@
-import { Request, Response, RequestHandler } from 'express';
+import { Request, Response } from 'express';
 
 import { Called } from '@/core/services/provider';
-
 import {
-  AddController,
+  CreateController,
   Controller,
   ApiResponse,
   Get,
@@ -16,7 +15,7 @@ import {
   IMockService
 } from '@/app/modules/mock';
 
-@AddController
+@CreateController
 @Controller(CONFIG.routes.prefix)
 export class MockController {
 

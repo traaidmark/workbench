@@ -1,8 +1,8 @@
-import { ApiController, IApiMeta } from '../api.schema';
+import { ApiControllerMeta, IApiMeta } from '../api.schema';
 
 export class ApiMeta implements IApiMeta {
   private url: string;
-  private controllers: ApiController[];
+  private controllers: ApiControllerMeta[];
   
   constructor(
     url: string,
@@ -27,7 +27,7 @@ export class ApiMeta implements IApiMeta {
     console.log(`[API SERVICE]: }`);
   }
 
-  public add = (c: ApiController):void => {
+  public add = (c: ApiControllerMeta):void => {
     this.controllers.push(c);
   }
 

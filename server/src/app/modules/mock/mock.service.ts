@@ -1,4 +1,5 @@
-import { ProviderType, Provider, AddRepository, Called } from '@/core';
+import { Called } from '@/core/services/provider';
+import { CreateService, InjectRepository } from '@/core/services/api';
 
 import {
   CONFIG,
@@ -6,11 +7,7 @@ import {
   IMockRepository,
 } from '@/app/modules/mock';
 
-import {
-  AddService, InjectRepository,
-} from '@/core/services/api';
-
-@AddService
+@CreateService
 export class MockService implements IMockService {
   
   @InjectRepository @Called(CONFIG.names.Repository) _repo: IMockRepository;

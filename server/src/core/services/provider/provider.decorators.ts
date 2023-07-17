@@ -6,14 +6,11 @@ import { ProviderType, ProviderMeta } from '@/core/services/provider';
 
 // DECORATORS: UTILITY
 
-export const AddUtility = inject(ProviderType.Utility);
-export const AddBase = inject(ProviderType.Base);
-
 export const Called = (n: string) => named(n);
 
 // DECORATOR: PROVIDER
 
-export function Provider(type: ProviderType) {
+export function CreateProvider(type: ProviderType) {
   return function(target: DecoratorTarget): void {
 
     const currentMeta: ProviderMeta = {
@@ -45,5 +42,11 @@ export function Provider(type: ProviderType) {
   }
 }
 
-export const Utility = Provider(ProviderType.Utility);
-export const DataSource = Provider(ProviderType.DataSource);
+// DECORATOR: HELPERS
+
+export const CreateUtility = CreateProvider(ProviderType.Utility);
+export const InjectUtility = inject(ProviderType.Utility);
+
+export const CreateDataSource = CreateProvider(ProviderType.DataSource);
+export const InjectDataSource = inject(ProviderType.DataSource);
+

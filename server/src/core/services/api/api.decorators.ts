@@ -5,13 +5,13 @@ import { DecoratorTarget, DecoratorType, DecoratorMeta, ConstructorFunction } fr
 
 
 import { ApiRouteMeta, ApiEndpointMeta, ApiMiddleware,  ApiMethodType } from '@/core/services/api';
-import { Provider, ProviderType } from '@/core/services/provider';
+import { CreateProvider, ProviderType } from '@/core/services/provider';
 
 // DECORATOR: HELPERS
 
-export const AddController = Provider(ProviderType.ApiController);
-export const AddService = Provider(ProviderType.ApiService);
-export const AddRepository = Provider(ProviderType.ApiRepository);
+export const CreateController = CreateProvider(ProviderType.ApiController);
+export const CreateService = CreateProvider(ProviderType.ApiService);
+export const CreateRepository = CreateProvider(ProviderType.ApiRepository);
 
 export const InjectRepository = inject(ProviderType.ApiRepository);
 export const InjectService = inject(ProviderType.ApiService);
@@ -29,7 +29,7 @@ export function Controller(path: string, ...middleware: ApiMiddleware[]) {
       },
       target
     }
-    Provider(ProviderType.ApiController);
+    
     Reflect.defineMetadata(DecoratorType.Controller, current, target);
 
     const previousValues: DecoratorMeta<ApiRouteMeta>[] = Reflect.getMetadata(
