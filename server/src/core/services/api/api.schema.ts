@@ -112,7 +112,11 @@ export interface IApiBaseController {
   send()
 }
 
-export interface ApiResponse<T> {
+// export interface IApiResponse<T> {
+//   respond: ();
+// }
+
+export interface ApiResponseBody<T> {
   code: number;
   message: string;
   data: T
