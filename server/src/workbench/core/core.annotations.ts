@@ -4,9 +4,10 @@ import { DecoratorTarget, DecoratorType } from '@/core/lib/schema';
 
 import { MetaUtility, MetaType, MetaTarget } from './utility/meta';
 
-import { ModuleType, ModuleMeta, ModuleInput } from './core.schema';
+import { ProviderType, ProviderMeta, ModuleMeta, ModuleInput } from './core.schema';
 
-const util = new MetaUtility(MetaType.Module);
+const moduleMeta = new MetaUtility(MetaType.Module);
+const providerMeta = new MetaUtility(MetaType.Provider);
 
 // DECORATORS: UTILITY
 
@@ -19,38 +20,37 @@ export function Module(module: ModuleInput) {
 
     const currentMeta: ModuleMeta = {
       token: (target as { name: string }).name,
-      module,
+      providers: module.providers,
       target
     }
 
-    util.register<ModuleMeta>(currentMeta, target);
+    moduleMeta.register<ModuleMeta>(currentMeta, target);
+  }
+}
 
-    // decorate(injectable(), target);
-    // Reflect.defineMetadata(
-    //   DecoratorType.Provider,
-    //   currentMeta, 
-    //   target
-    // );
+// ANNOTATION: PROVIDER
 
-    // const previousValues: ModuleMeta[] = Reflect.getMetadata(
-    //   DecoratorType.Provider,
-    //   Reflect,
-    // ) || [];
+export function RegisterProvider(type: ProviderType) {
+  return function(target: MetaTarget): void {
 
-    // const metaArray = [currentMeta, ...previousValues];
+    const currentMeta: ProviderMeta = {
+      token: (target as { name: string }).name,
+      type,
+      target
+    }
 
-    // Reflect.defineMetadata(
-    //   DecoratorType.Provider,
-    //   metaArray,
-    //   Reflect,
-    // );
+    decorate(injectable(), target);
 
+    providerMeta.register<ProviderMeta>(currentMeta, target);
   }
 }
 
 // DECORATOR: HELPERS
 
-// export const CreateUtility = CreateProvider(ProviderType.Utility);
+export const RegisterFoundation = RegisterProvider(ProviderType.Foundation);
+export const RegisterSource = RegisterProvider(ProviderType.Source);
+export const RegisterCore = RegisterProvider(ProviderType.Core);
+
 // export const InjectUtility = inject(ProviderType.Utility);
 
 // export const CreateDataSource = CreateProvider(ProviderType.DataSource);

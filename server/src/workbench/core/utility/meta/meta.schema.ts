@@ -3,7 +3,8 @@ import {ConstructorFunction, Prototype } from '@/workbench/core/core.schema';
 // SCHEMA: META TYPES
 
 export enum MetaType {
-  Module = 'workshop:decorator:provider',
+  Module = 'core:decorator:Module',
+  Provider = 'core:decorator:Provider',
 }
 
 // SCHEMA: META INTERFACES

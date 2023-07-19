@@ -1,45 +1,76 @@
-import { Container, injectable } from 'inversify';
+import { Container, injectable, decorate } from 'inversify';
 
-import { MetaUtility, MetaType, MetaTarget } from './utility/meta';
+import { MetaUtility, MetaType, MetaTarget } from './utility';
 
-import { ModuleInput, ModuleTarget } from './core.schema';
+import { ModuleInput, ModuleTarget, ProviderMeta, ProviderType } from './core.schema';
 
 // import { AppModule, AppModuleInterface } from './app.module';
 // import { HelloModule, HelloModuleInterface } from './hello.module';
 
 export class CoreIoc {
   private _container: Container;
-  private _meta: MetaUtility;
+  private _moduleMeta: MetaUtility;
+  private _providerMeta: MetaUtility;
 
   constructor() {
     this._container = new Container();
-    this._meta = new MetaUtility(MetaType.Module);
+    this._moduleMeta = new MetaUtility(MetaType.Module);
+    this._providerMeta = new MetaUtility(MetaType.Provider);
   }
 
   // PUBLIC METHODDS
 
-  public register = (module: ModuleTarget ): this => {
+  public loadModule = (module: ModuleTarget ): this => {
 
     console.log('[CoreIoc] registering module: ', module);
+    
+    const moduleMeta = this._moduleMeta.load<ProviderMeta>();
+    
+    console.log('[CoreIoc] module Meta: ', moduleMeta);
 
-    const meta = this._meta.load();
+    this._registerProviders()
 
-    console.log('[CoreIoc] metadata from first?: ', meta[0].module);
-    console.log('[CoreIoc] metadata: ', meta);
+    
+    
 
-    // m.forEach(element => {
-      
+    // moduleMeta.module.forEach(element => {
+    //   console.log('[CoreIoc] registering module: ', module);
     // });
 
     // this._container.bind<AppModuleInterface>('app').to(AppModule);
     // this._container.bind<HelloModuleInterface>('test').to(HelloModule);
     return this;
   }
+  // PRIVATE METHODDS
+
+  
 
   public get = (n: string) => {
     return this._container.get(n);
   }
 
+  public getByName = <T>(t: ProviderType, n: string): T => {
+    return this._container.getNamed(t, n);
+  }
+
   // PRIVATE METHODS
+
+  private _registerProviders = (): void => {
+
+    console.log('[CoreIoc] registering provider: ');
+
+    const providerMeta = this._providerMeta.load<ProviderMeta>();
+
+    providerMeta.forEach(provider => {
+      console.log('[CoreIoc] Register: ', provider.token);
+      
+      // decorate(injectable(), provider.target);
+
+      this._container.bind(provider.type)
+        .to(provider.target as new (...args: never[]) => unknown)
+        .whenTargetNamed(provider.token);
+    });
+    
+  }
 
 }

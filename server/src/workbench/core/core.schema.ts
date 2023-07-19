@@ -18,12 +18,6 @@ export interface ConstructorFunction<T = Record<string, unknown>> {
 export type ModuleTarget<T = unknown> =
   ConstructorFunction<T> | Prototype<T>;
 
-
-export interface ModuleType {
-  Utility: 'core:module:utility';
-  Misc: 'core:module:misc';
-}
-
 export interface ModuleObject {
   utility?: any[];
 }
@@ -43,5 +37,21 @@ export interface ModuleInput {
 export interface ModuleMeta {
   token: string;
   target: MetaTarget;
-  module: ModuleInput;
+  providers?: any[];
+}
+
+// SCHEMA: PROVIDERS
+
+export enum ProviderType {
+  Core = 'core:container:Core',
+  Foundation = 'core:container:Foundation',
+  Source = 'core:container:Source',
+  Provider = 'core:container:Provider',
+  Module = 'core:container:Module',
+}
+
+export interface ProviderMeta {
+  token: string;
+  type: ProviderType;
+  target: MetaTarget;
 }

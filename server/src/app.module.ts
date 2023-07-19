@@ -1,9 +1,11 @@
-import { HelloModule } from '@/workbench/modules';
 import { Module } from './workbench/core';
+
+import { ApiService, DatabaseService } from '@/workbench/providers';
 
 @Module({
   providers: [
-    HelloModule
+    DatabaseService,
+    ApiService,
   ]
 })
 export class AppModule {}

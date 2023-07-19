@@ -30,7 +30,7 @@ export class MetaUtility {
     );
   }
 
-  public load() {
+  public load<T>(): T[] {
     console.log(`[Meta Util]: Loading metadata for ${this._type}`);
     return Reflect.getMetadata(
       this._type,
