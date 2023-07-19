@@ -2,24 +2,30 @@ import { Container, injectable } from 'inversify';
 
 import { MetaUtility, MetaType, MetaTarget } from './utility/meta';
 
-import { ModuleInput } from './core.schema';
+import { ModuleInput, ModuleTarget } from './core.schema';
 
 // import { AppModule, AppModuleInterface } from './app.module';
 // import { HelloModule, HelloModuleInterface } from './hello.module';
 
 export class CoreIoc {
   private _container: Container;
+  private _meta: MetaUtility;
 
   constructor() {
     this._container = new Container();
+    this._meta = new MetaUtility(MetaType.Module);
   }
 
   // PUBLIC METHODDS
 
-  public register = (m: unknown[] ): this => {
+  public register = (module: ModuleTarget ): this => {
 
-    console.log('[CoreIoc] registering module: ', m.length);
-    console.log('[CoreIoc] registering module: ', m);
+    console.log('[CoreIoc] registering module: ', module);
+
+    const meta = this._meta.load();
+
+    console.log('[CoreIoc] metadata from first?: ', meta[0].module);
+    console.log('[CoreIoc] metadata: ', meta);
 
     // m.forEach(element => {
       

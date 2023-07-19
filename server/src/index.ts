@@ -7,5 +7,5 @@ import { AppModule } from './app.module';
 
 const app = new CoreBootstrap();
 app
-.load(AppModule)
+.register(AppModule)
 .start();

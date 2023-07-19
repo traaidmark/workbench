@@ -1,9 +1,11 @@
 import { CoreIoc} from './core.ioc';
 import { ModuleTarget, ModuleInput } from './core.schema';
+import { ERROR } from './core.constants';
 
 export class CoreBootstrap {
 
   private _ioc: CoreIoc;
+  private _hasRegistered: boolean;
   public appy;
   
   constructor() {
@@ -13,12 +15,19 @@ export class CoreBootstrap {
 
   // PUBLIC METHODS
 
-  public load = (module: ModuleTarget): this => {
-    console.log('[WORKBENCH] MODULES', module)
+  public register = (module: ModuleTarget): this => {
+    if(!module) {
+      throw new Error(ERROR.BOOTSTRAP.noModule);
+    }
+    this._ioc.register(module);
+    this._hasRegistered = true;
     return this;
   }
   
   public start = (): void => {
+    if(!this._hasRegistered) {
+      throw new Error(ERROR.BOOTSTRAP.hasNotRegistered);
+    }
     // this.appy.start();
     console.log('[WORKBENCH] Starts')
   }

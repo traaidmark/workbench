@@ -1,10 +1,10 @@
 import { Module } from '@/workbench/core';
 
-import { HelloProvider } from './hello.provider';
+import { HelloService } from './hello.service';
 
 @Module({
   providers: [
-    HelloProvider
+    HelloService
   ]
 })
 export class HelloModule {}

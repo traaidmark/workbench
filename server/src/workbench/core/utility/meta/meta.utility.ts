@@ -30,6 +30,12 @@ export class MetaUtility {
     );
   }
 
-  public fetch() {}
+  public load() {
+    console.log(`[Meta Util]: Loading metadata for ${this._type}`);
+    return Reflect.getMetadata(
+      this._type,
+      Reflect,
+    ) || [];
+  }
 
 }
