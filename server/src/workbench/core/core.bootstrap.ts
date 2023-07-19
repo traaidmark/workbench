@@ -1,18 +1,15 @@
-import { injectable } from 'inversify';
-
 import { CoreIoc} from './core.ioc';
 
-import { ModuleTarget, ModuleInput, ProviderType } from './core.schema';
+import { ModuleTarget, ProviderType } from './core.schema';
 import { ERROR } from './core.constants';
 
-import { LoggerServiceInterface } from '@/workbench/providers';
+import { LoggerServiceInterface } from '@/workbench/providers/core';
 
-@injectable()
 export class CoreBootstrap {
 
   private _ioc: CoreIoc;
   private _hasRegistered: boolean;
-  private _logger: LoggerServiceInterface;
+  private _log: LoggerServiceInterface
   
   constructor() {
     this._ioc = new CoreIoc();
@@ -38,14 +35,14 @@ export class CoreBootstrap {
     this._init();
     
     // this.appy.start();
-    console.log('[WORKBENCH] What is logger?!', this._logger.world());
-    console.log('[WORKBENCH] Starts')
+    this._log.info('App Initialised!')
   }
 
   // PRIVATE METHODS
 
   private _init = ():void => {
-    this._logger = this._ioc.getByName<LoggerServiceInterface>(ProviderType.Core, 'LoggerService');
+    this._log = this._ioc.getByName(ProviderType.Core, 'Logger');
+    this._log.setNamespace('CORE');
   }
 
 }

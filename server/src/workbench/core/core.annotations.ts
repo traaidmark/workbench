@@ -11,7 +11,7 @@ const providerMeta = new MetaUtility(MetaType.Provider);
 
 // DECORATORS: UTILITY
 
-// export const Called = (n: string) => named(n);
+export const Called = (n: string) => named(n);
 
 // ANNOTATION: MODULE
 
@@ -30,7 +30,7 @@ export function Module(module: ModuleInput) {
 
 // ANNOTATION: PROVIDER
 
-export function RegisterProvider(type: ProviderType) {
+export function RegisterProvider<T>(type: ProviderType) {
   return function(target: MetaTarget): void {
 
     const currentMeta: ProviderMeta = {
@@ -51,6 +51,7 @@ export const RegisterFoundation = RegisterProvider(ProviderType.Foundation);
 export const RegisterSource = RegisterProvider(ProviderType.Source);
 export const RegisterCore = RegisterProvider(ProviderType.Core);
 
+export const InjectCore = inject(ProviderType.Core);
 // export const InjectUtility = inject(ProviderType.Utility);
 
 // export const CreateDataSource = CreateProvider(ProviderType.DataSource);
