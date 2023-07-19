@@ -2,14 +2,10 @@ import 'reflect-metadata';
 import 'module-alias/register';
 import 'dotenv/config';
 
-import { App } from '@/core';
+import { CoreBootstrap } from '@/workbench/core';
+import { AppModule } from './app.module';
 
-import '@/app/modules';
-
-import config from '@/config';
-
-console.log('ENV', process.env.NODE_ENV);
-
-const app = new App(config);
-
-app.start();
+const app = new CoreBootstrap();
+app
+.load(AppModule)
+.start();
