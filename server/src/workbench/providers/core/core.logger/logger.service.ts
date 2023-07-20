@@ -1,10 +1,10 @@
 import winston from 'winston';
 
-import { RegisterCore } from '@/workbench/core';
+import { CoreProvider } from '@/workbench/core';
 
 import { LoggerServiceInterface } from './logger.schema';
 
-@RegisterCore
+@CoreProvider
 export class LoggerService implements LoggerServiceInterface {
 
   private _namespace: string = 'Workbench';

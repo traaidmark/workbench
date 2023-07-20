@@ -47,9 +47,9 @@ export function RegisterProvider<T>(type: ProviderType) {
 
 // DECORATOR: HELPERS
 
-export const RegisterFoundation = RegisterProvider(ProviderType.Foundation);
-export const RegisterSource = RegisterProvider(ProviderType.Source);
-export const RegisterCore = RegisterProvider(ProviderType.Core);
+export const TransportationProvider = RegisterProvider(ProviderType.Transport);
+export const SourceProvider = RegisterProvider(ProviderType.Source);
+export const CoreProvider = RegisterProvider(ProviderType.Core);
 
 export const InjectCore = inject(ProviderType.Core);
 // export const InjectUtility = inject(ProviderType.Utility);

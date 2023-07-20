@@ -43,11 +43,11 @@ export interface ModuleMeta {
 // SCHEMA: PROVIDERS
 
 export enum ProviderType {
-  Core = 'core:container:Core',
-  Foundation = 'core:container:Foundation',
-  Source = 'core:container:Source',
-  Provider = 'core:container:Provider',
-  Module = 'core:container:Module',
+  Core = 'Core',
+  Transport = 'Transport',
+  Source = 'Source',
+  Provider = 'Provider',
+  Module = 'Module',
 }
 
 export interface ProviderMeta {
@@ -55,3 +55,8 @@ export interface ProviderMeta {
   type: ProviderType;
   target: MetaTarget;
 }
+
+// SCHEMA: PROVIDER INTERFACES
+
+export interface TransportInterface {}
+export interface SourceInterface {}

@@ -1,9 +1,11 @@
-import { RegisterCore, InjectCore, Called } from '@/workbench/core';
+import { CoreProvider, InjectCore, Called } from '@/workbench/core';
 
-import { MetaServiceInterface } from './meta.schema';
 import { LoggerServiceInterface } from '@/workbench/providers/core';
 
-@RegisterCore
+import { MetaServiceInterface, MetaReport } from './meta.schema';
+
+
+@CoreProvider
 export class MetaService implements MetaServiceInterface {
 
   @InjectCore @Called('Logger') private _log: LoggerServiceInterface;
@@ -12,13 +14,10 @@ export class MetaService implements MetaServiceInterface {
     this._log.setNamespace(n);
   };
 
-  public report = () => {
+  public report = (meta: MetaReport) => {
     this._log.info('');
-    this._log.info('Available Modules: {');
-    this._log.info('- item 1');
-    this._log.info('- item 1');
-    this._log.info('- item 1');
-    this._log.info('- item 1');
+    this._log.info(`${meta.action}: {`);
+    meta.items.forEach((i) => this._log.info(`- ${i}`));
     this._log.info('}');
     this._log.info('');
   }

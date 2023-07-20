@@ -23,7 +23,7 @@ export class CoreIoc {
   constructor() {
     this._container = new Container();
 
-    this._registerCoreProviders();
+    this._CoreProviderProviders();
 
     this._moduleMeta = new MetaUtility(MetaType.Module);
     this._providerMeta = new MetaUtility(MetaType.Provider);
@@ -37,8 +37,10 @@ export class CoreIoc {
 
   public loadModule = (module: ModuleTarget ): this => {
     
-    this._meta.report();
-    this._meta.log().warn('hello warning?!')
+    this._meta.report({
+      action: 'Modules Registered:',
+      items: [`${module}`],
+    });
 
     this._registerProviders();
 
@@ -60,17 +62,15 @@ export class CoreIoc {
 
   private _registerProviders = (): void => {
 
-    console.log('[CoreIoc] registering provider: ');
-
     const providerMeta = this._providerMeta.load<ProviderMeta>();
+    const validProviders = providerMeta.filter(p => p.type !== ProviderType.Core)
 
-    providerMeta
-      .filter(p => p.type !== ProviderType.Core)
-      .forEach(provider => {
-        console.log('[CoreIoc] Register: ', provider.token);
-        
-        // decorate(injectable(), provider.target);
-
+    this._meta.report({
+      action: 'Providers Registered:',
+      items: validProviders.map((p) => `[${p.type}]: ${p.token}`),
+    });
+    
+    validProviders.forEach(provider => {
         this._container.bind(provider.type)
           .to(provider.target as new (...args: never[]) => unknown)
           .whenTargetNamed(provider.token);
@@ -78,7 +78,7 @@ export class CoreIoc {
     
   }
 
-  private _registerCoreProviders = (): void => {
+  private _CoreProviderProviders = (): void => {
 
     this._container.bind<LoggerServiceInterface>(ProviderType.Core).to(LoggerService).whenTargetNamed('Logger');
 

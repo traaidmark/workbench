@@ -1,6 +1,6 @@
 // FOUNDATION PROVIDERS
 
-export * from './foundation.api';
+export * from './transport.api';
 
 // SOURCE PROVIDERS
 
@@ -8,4 +8,4 @@ export * from './source.database';
 
 // CORE PROVIDERS
 
-export * from './core.logger';
+export * from './core';

@@ -5,12 +5,13 @@ import { LoggerServiceInterface } from '@/workbench/providers/core'
 
 export interface MetaServiceInterface {
   setnamespace(n: string): void;
-  report(): void;
+  report(meta: MetaReport): void;
   log(): LoggerServiceInterface;
 }
 
 // SCHEMA: REPORTER MODEL
 
 export interface MetaReport {
-  name: string;
+  action: string;
+  items: string[];
 }
