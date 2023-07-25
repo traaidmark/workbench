@@ -20,7 +20,7 @@ export class Container {
   }
 
   public get = <T>(token: string): T => {
-    const provider = this._providers.find(p => p.token === token);
+    const provider = this._providers.find(p => p.token === token) as T;
     return this._getFactory(provider) as T;
   }
 
