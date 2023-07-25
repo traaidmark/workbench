@@ -1,35 +1,41 @@
-import {Provider, ClassProvider, ValueProvider} from './ioc.schema';
+import {Provider, ClassProvider, ValueProvider, ContainerInterface} from './ioc.schema';
 
-export class Container {
+export class Container implements ContainerInterface {
 
   private _providers: Provider[] = [];
 
   constructor() {}
 
-  public listAll = (): Provider[] => {
-    return this._providers;
-  };
+  // PUBLIC METHODS
 
-  // Registering the instances
-  public bindMany = (p: Provider[]) => {
+  // BINDING
+
+  public setMany = (p: Provider[]): Provider[] => {
     this._providers = [...this._providers, ...p];
+    return this._providers;
   }
 
-  public bindOne = (p: Provider) => {
+  public set = (p: Provider): Provider[] => {
     this._providers = [...this._providers, p];
+    return this._providers;
   }
 
-  public get = <T>(token: string): T => {
+  // GETTING
+
+  public getByToken = <T>(token: string): T => {
     const provider = this._providers.find(p => p.token === token) as T;
     return this._getFactory(provider) as T;
   }
 
-  private _getFactory = (provider: Provider) => {
+
+  // PRIVATE METHODS
+
+  private _getFactory = <T>(provider: Provider): T => {
     if('class' in provider) {
-      return this._asClass(provider);
+      return this._asClass(provider) as T;
     }
     if('value' in provider) {
-      return this._asValue(provider);
+      return this._asValue(provider) as T;
     }
   }
 

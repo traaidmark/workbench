@@ -7,7 +7,10 @@ interface Constructable {
 // INTERFACE: CONTAINER
 
 export interface ContainerInterface {
-  
+  setMany(p: Provider[]): Provider[];
+  set(p: Provider): Provider[];
+
+  getByToken<T>(token: string): T;
 }
 
 // SCHEMA: PROVIDER
