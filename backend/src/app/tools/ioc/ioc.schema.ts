@@ -4,6 +4,12 @@ interface Constructable {
   new(...args: any) : unknown;
 }
 
+// INTERFACE: CONTAINER
+
+export interface ContainerInterface {
+  
+}
+
 // SCHEMA: PROVIDER
 
 export interface BaseProvider {

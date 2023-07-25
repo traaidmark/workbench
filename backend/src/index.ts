@@ -1,9 +1,9 @@
 import 'reflect-metadata';
 import 'module-alias/register';
 
-// import { Container, Provider, ValueProvider } from 'files/tools';
+import { Container, Provider, ValueProvider } from '@/app/tools';
 
-import { UserControllerInterface, UserModule } from '@/modules/user';
+import { UserControllerInterface, UserModule } from '@/features/user';
 
 // // OLD SHIT WAY
 
