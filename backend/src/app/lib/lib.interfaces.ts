@@ -17,6 +17,7 @@ export interface AppProviders {
 
 export interface AppTransportInterface {
   init(controllers: []): this;
+  build(controllers: []): this;
   start(): void;
 }
 

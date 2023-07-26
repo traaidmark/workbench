@@ -5,12 +5,6 @@ import express, {
 
 import { AppTransportInterface } from '@/app/lib';
 
-// import {
-//   TransportInterface,
-// } from '@/bench/core/lib';
-
-// import { TransportProvider } from '@/bench/core';
-
 class ApiTransport implements AppTransportInterface {
   private _app: Application;
   private _router: Router;
@@ -24,7 +18,12 @@ class ApiTransport implements AppTransportInterface {
   // PUBLIC METHODS
 
   public init = (controllers: []): this => {
-    console.log('INITTING TRANSPORT!')
+    console.log('INITTING TRANSPORT!');
+    return this;
+  }
+
+  public build = (controllers: []): this => {
+    console.log('BUILDING TRANSPORT!')
     this._registerRouter();
     return this;
   }

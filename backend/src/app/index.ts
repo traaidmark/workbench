@@ -39,7 +39,7 @@ export class App implements AppInterface {
   }
 
   public build = (): this => {
-
+    this._buildTransports();
     return this;
   }
 
@@ -89,6 +89,13 @@ export class App implements AppInterface {
   private _initTransports = (): void => {
 
     this._appProviders.transports.forEach(t => t.init([]));
+
+    return ;
+  }
+
+  private _buildTransports = (): void => {
+
+    this._appProviders.transports.forEach(t => t.build([]));
 
     return ;
   }
