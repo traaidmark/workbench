@@ -10,5 +10,6 @@ const app = new App(new Container());
 
 app
   .load(appModule)
+  .init()
   .build()
   .start();

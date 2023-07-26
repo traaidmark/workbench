@@ -11,6 +11,8 @@ export interface ContainerInterface {
   set(p: Provider): Provider[];
 
   getByToken<T>(token: string): T;
+
+  getList(): Provider[];
 }
 
 // SCHEMA: PROVIDER

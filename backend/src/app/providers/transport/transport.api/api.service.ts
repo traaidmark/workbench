@@ -3,13 +3,15 @@ import express, {
   Router,
 } from 'express';
 
+import { AppTransportInterface } from '@/app/lib';
+
 // import {
 //   TransportInterface,
 // } from '@/bench/core/lib';
 
 // import { TransportProvider } from '@/bench/core';
 
-class ApiTransport {
+class ApiTransport implements AppTransportInterface {
   private _app: Application;
   private _router: Router;
 

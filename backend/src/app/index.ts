@@ -1,9 +1,18 @@
 import { Container, Provider } from '@/app/tools/ioc';
 
-import { AppInterface, AppProviderType, AppSystemError } from '@/app/lib';
+import {
+  AppInterface,
+  AppProviderType,
+  AppProviders,
+  AppSystemError,
+  AppTransportInterface
+} from '@/app/lib';
 
 export class App implements AppInterface {
+
   private _ioc: Container;
+
+  private _appProviders: AppProviders;
 
   constructor(
     ioc: Container
@@ -17,16 +26,26 @@ export class App implements AppInterface {
 
     const loadRes = this._verifyAndBindProviders(providers);
 
-    console.log(loadRes);
+    console.log(`Loaded ${loadRes.length} Providers`);
 
+    this._instantiateProviders();
+
+    return this;
+  }
+
+  public init = (): this => {
+    this._initTransports();
     return this;
   }
 
   public build = (): this => {
+
     return this;
   }
 
   public start = (): void => {
+
+    this._startTransports()
 
   }
 
@@ -53,6 +72,32 @@ export class App implements AppInterface {
 
     return this._ioc.setMany(providers);
   
+  }
+
+  private _instantiateProviders = (): void => {
+
+    this._appProviders = {
+      ...this._appProviders,
+      transports: this._ioc.listByType(AppProviderType.Transport).map(p => this._ioc.getByToken(p.token)) as AppTransportInterface[],
+    }
+
+    console.log(this._appProviders);
+
+    return ;
+  }
+
+  private _initTransports = (): void => {
+
+    this._appProviders.transports.forEach(t => t.init([]));
+
+    return ;
+  }
+
+  private _startTransports = (): void => {
+
+    this._appProviders.transports.forEach(t => t.start());
+
+    return ;
   }
 
 }

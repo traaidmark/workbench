@@ -27,6 +27,10 @@ export class Container implements ContainerInterface {
     return this._getFactory(provider) as T;
   }
 
+  public listByType = (t: string): Provider[] => {
+    return this._providers.filter(p => p.type === t);
+  }
+
 
   // PRIVATE METHODS
 
@@ -44,9 +48,12 @@ export class Container implements ContainerInterface {
     const instance: T = new provider.class as T;
 
     const props = this._getClassProps(provider.class);
-    props.forEach((prop, k) => {
-      instance[prop] = this.get(provider.imports[k]);
-    });
+    
+    // if(props.length > 0) {
+    //   props.forEach((prop, k) => {
+    //     instance[prop] = this.get(provider.imports[k]);
+    //   });
+    // }
 
     if(provider.asSingleton) {
       return MakeSingleton.getInstance(instance) as T
