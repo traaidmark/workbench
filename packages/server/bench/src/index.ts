@@ -1,20 +1,20 @@
 import { Container, Provider } from 'ioc-container';
+import { BenchProviderType } from 'common-workbench-types';
 
 import {
-  AppInterface,
-  AppProviderType,
-  AppProviders,
-  AppSystemError,
-  AppTransportInterface
+  BenchInterface,
+  BenchProviders,
+  BenchSystemError,
+  BenchTransportInterface
 } from './lib';
 
 import coreProviders from './core.module';
 
-export class App implements AppInterface {
+export class Bench implements BenchInterface {
 
   private _ioc: Container;
 
-  private _appProviders: AppProviders;
+  private _appProviders: BenchProviders;
 
   constructor() {
     this._ioc = new Container;
@@ -62,20 +62,20 @@ export class App implements AppInterface {
   private _verifyAndBindProviders = (providers: Provider[]): Provider[] => {
     const isEmpty = providers.length === 0;
     const noControllers = providers.filter(
-      p => p.type === AppProviderType.Controller
+      p => p.type === BenchProviderType.Controller
     ).length === 0;
     const noTransport = providers.filter(
-      p => p.type === AppProviderType.Transport
+      p => p.type === BenchProviderType.Transport
     ).length === 0;
     
-    if(isEmpty) {
-      throw new Error(AppSystemError.noProviders);
-    }
-    if(noControllers) {
-      throw new Error(AppSystemError.noControllers);
-    }
+    // if(isEmpty) {
+    //   throw new Error(BenchSystemError.noProviders);
+    // }
+    // if(noControllers) {
+    //   throw new Error(BenchSystemError.noControllers);
+    // }
     // if(noTransport) {
-    //   throw new Error(AppSystemError.noTransport);
+    //   throw new Error(BenchSystemError.noTransport);
     // }
 
     return this._ioc.setMany(providers);
@@ -86,7 +86,7 @@ export class App implements AppInterface {
 
     this._appProviders = {
       ...this._appProviders,
-      transports: this._ioc.listByType(AppProviderType.Transport).map(p => this._ioc.getByToken(p.token)) as AppTransportInterface[],
+      transports: this._ioc.listByType(BenchProviderType.Transport).map(p => this._ioc.getByToken(p.token)) as BenchTransportInterface[],
     }
 
     console.log(this._appProviders);

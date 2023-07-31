@@ -1,5 +1,5 @@
 {
-  "name": "ioc-container",
+  "name": "common-workbench-types",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.ts",
@@ -8,8 +8,5 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "common-workbench-types": "workspace:*"
-  }
+  "license": "ISC"
 }

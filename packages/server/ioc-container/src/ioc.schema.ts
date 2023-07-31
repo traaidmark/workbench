@@ -1,8 +1,4 @@
-// SCHEMA: GENERICS
-
-interface Constructable {
-  new(...args: any) : unknown;
-}
+import { ConstructableInterface } from 'common-workbench-types';
 
 // INTERFACE: CONTAINER
 
@@ -29,7 +25,7 @@ export interface ValueProvider<T> extends BaseProvider {
 }
 
 export interface ClassProvider<T> extends BaseProvider {
-  class: Constructable;
+  class: ConstructableInterface;
 }
 
 export type Provider<T = unknown> =

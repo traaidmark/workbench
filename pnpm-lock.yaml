@@ -52,6 +52,8 @@ importers:
         specifier: ^5.1.6
         version: 5.1.6
 
+  packages/config/common-workbench-types: {}
+
   packages/config/eslint-config-custom:
     dependencies:
       eslint-config-next:
@@ -95,9 +97,16 @@ importers:
 
   packages/server/bench:
     dependencies:
+      bench-core-logger:
+        specifier: workspace:*
+        version: link:../bench-core-logger
       ioc-container:
         specifier: workspace:*
         version: link:../ioc-container
+    devDependencies:
+      common-workbench-types:
+        specifier: workspace:*
+        version: link:../../config/common-workbench-types
 
   packages/server/bench-core-logger:
     dependencies:
@@ -118,7 +127,11 @@ importers:
         specifier: ^5.1.6
         version: 5.1.6
 
-  packages/server/ioc-container: {}
+  packages/server/ioc-container:
+    devDependencies:
+      common-workbench-types:
+        specifier: workspace:*
+        version: link:../../config/common-workbench-types
 
 packages:
 
