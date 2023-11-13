@@ -10,6 +10,8 @@
     "nx": "17.1.1"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "plugins/*",
+    "libraries/*"
   ]
 }

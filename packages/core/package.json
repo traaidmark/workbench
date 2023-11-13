@@ -1,0 +1,16 @@
+{
+  "name": "@traaidmark/workbench-core",
+  "description": "",
+  "version": "0.0.0",
+  "scripts": {
+    "start:dev": "nodemon",
+    "build": "tsc",
+    "test": "node index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1"
+  },
+  "dependencies": {
+}
+}
