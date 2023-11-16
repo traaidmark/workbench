@@ -1,0 +1,22 @@
+{
+  "name": "@traaidmark/workbench-service-logger",
+  "description": "A logger service based on winston",
+  "version": "0.0.0",
+  "main": "./src/index.js",
+  "scripts": {
+    "start:dev": "nodemon ./src/index.ts --esm",
+    "start:test": "nodemon ./test/index.js",
+    "build": "tsc",
+    "test": "node index.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.9.0",
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.6.2",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "winston": "^3.11.0"
+  }
+}

@@ -1,9 +1,9 @@
 {
   "version": "6.0",
-  "nxVersion": "17.1.1",
+  "nxVersion": "17.1.2",
   "deps": {
-    "@nx/js": "17.1.1",
-    "nx": "17.1.1"
+    "@nx/js": "17.1.2",
+    "nx": "17.1.2"
   },
   "pathMappings": {},
   "nxJsonPlugins": [],
@@ -33,11 +33,11 @@
       },
       {
         "file": "package-lock.json",
-        "hash": "3112063602234064652"
+        "hash": "17122056988550426169"
       },
       {
         "file": "package.json",
-        "hash": "10754465259488385018"
+        "hash": "5959428368047753546"
       }
     ]
   }

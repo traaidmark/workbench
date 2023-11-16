@@ -1,4 +1,4 @@
 {
-  "name": "@traaidmark/workbench-plugin-logger",
+  "name": "@traaidmark/wb-service-logger",
   "$schema": "../../node_modules/nx/schemas/project-schema.json"
 }
